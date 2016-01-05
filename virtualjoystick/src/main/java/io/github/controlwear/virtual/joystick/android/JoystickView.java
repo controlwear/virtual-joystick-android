@@ -168,7 +168,22 @@ public class JoystickView extends View {
         // to force a new draw
         invalidate();
 
+        if (mCallback != null)
+            mCallback.onMove(getAngle(), getPower());
+
         return true;
+    }
+
+
+    private int getAngle() {
+        return (int) Math.toDegrees(Math.atan2(mCenterY - mPosY, mPosX - mCenterX));
+    }
+
+
+    private int getPower() {
+        return (int) (100 * Math.sqrt((mPosX - mCenterX)
+                * (mPosX - mCenterX) + (mPosY - mCenterY)
+                * (mPosY - mCenterY)) / mBorderRadius);
     }
 
 
