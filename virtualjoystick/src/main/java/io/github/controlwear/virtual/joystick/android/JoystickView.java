@@ -148,6 +148,11 @@ public class JoystickView extends View {
             mPosY = (int) ((mPosY - mCenterY) * mBorderRadius / abs + mCenterY);
         }
 
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            mPosX = mCenterX;
+            mPosY = mCenterY;
+        }
+
         // to force a new draw
         invalidate();
 
