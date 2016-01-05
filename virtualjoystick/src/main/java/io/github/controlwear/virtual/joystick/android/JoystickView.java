@@ -26,9 +26,12 @@ public class JoystickView extends View
     public static final int DEFAULT_LOOP_INTERVAL = 100; // in milliseconds
 
 
+    private static final int DEFAULT_COLOR = Color.BLACK;
     private static final int DEFAULT_SIZE = 200;
     private static final double RATIO_SIZE_BUTTON = 0.25;
     private static final double RATIO_SIZE_BORDER = 0.75;
+
+    private static final int DEFAULT_WIDTH_BORDER = 3;
 
 
     // DRAWING
@@ -44,8 +47,9 @@ public class JoystickView extends View
     private int mCenterY = 0;
 
     // SIZE
-    private int mBorderRadius;
     private int mButtonRadius;
+    private int mBorderRadius;
+    private int mBorderWidth;
 
 
     private OnJoystickListener mCallback;
@@ -73,8 +77,9 @@ public class JoystickView extends View
         );
 
         try {
-            mButtonColor = styledAttributes.getColor(R.styleable.JoystickView_buttonColor, Color.BLACK);
-            mBorderColor = styledAttributes.getColor(R.styleable.JoystickView_borderColor, Color.BLACK);
+            mButtonColor = styledAttributes.getColor(R.styleable.JoystickView_buttonColor, DEFAULT_COLOR);
+            mBorderColor = styledAttributes.getColor(R.styleable.JoystickView_borderColor, DEFAULT_COLOR);
+            mBorderWidth = styledAttributes.getDimensionPixelSize(R.styleable.JoystickView_borderWidth, DEFAULT_WIDTH_BORDER);
         } finally {
             styledAttributes.recycle();
         }
@@ -98,7 +103,7 @@ public class JoystickView extends View
         mPaintCircleBorder.setAntiAlias(true);
         mPaintCircleBorder.setColor(mBorderColor);
         mPaintCircleBorder.setStyle(Paint.Style.STROKE);
-        mPaintCircleBorder.setStrokeWidth(3);
+        mPaintCircleBorder.setStrokeWidth(mBorderWidth);
     }
 
 
