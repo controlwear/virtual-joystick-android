@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class JoystickView extends View {
@@ -124,6 +125,33 @@ public class JoystickView extends View {
             // always return the full available bounds.
             return MeasureSpec.getSize(measureSpec);
         }
+    }
+
+
+    /*
+    USER EVENT
+     */
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // to move the button according to the finger coordinate
+        mPosX = (int) event.getX();
+        mPosY = (int) event.getY();
+
+        double abs = Math.sqrt((mPosX - mCenterX) * (mPosX - mCenterX)
+                + (mPosY - mCenterY) * (mPosY - mCenterY));
+
+        // move the button only within its boundaries
+        if (abs > mBorderRadius) {
+            mPosX = (int) ((mPosX - mCenterX) * mBorderRadius / abs + mCenterX);
+            mPosY = (int) ((mPosY - mCenterY) * mBorderRadius / abs + mCenterY);
+        }
+
+        // to force a new draw
+        invalidate();
+
+        return true;
     }
 
 
