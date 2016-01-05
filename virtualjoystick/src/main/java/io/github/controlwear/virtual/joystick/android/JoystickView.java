@@ -27,6 +27,7 @@ public class JoystickView extends View
 
 
     private static final int DEFAULT_COLOR = Color.BLACK;
+    private static final int DEFAULT_BACKGROUND_COLOR = Color.TRANSPARENT;
     private static final int DEFAULT_SIZE = 200;
     private static final double RATIO_SIZE_BUTTON = 0.25;
     private static final double RATIO_SIZE_BORDER = 0.75;
@@ -35,10 +36,13 @@ public class JoystickView extends View
 
 
     // DRAWING
-    private int mButtonColor;
-    private int mBorderColor;
     private Paint mPaintCircleButton;
     private Paint mPaintCircleBorder;
+    private Paint mPaintBackground;
+
+    private int mButtonColor;
+    private int mBorderColor;
+    private int mBackgroundColor;
 
     // COORDINATE
     private int mPosX = 0;
@@ -79,6 +83,7 @@ public class JoystickView extends View
         try {
             mButtonColor = styledAttributes.getColor(R.styleable.JoystickView_buttonColor, DEFAULT_COLOR);
             mBorderColor = styledAttributes.getColor(R.styleable.JoystickView_borderColor, DEFAULT_COLOR);
+            mBackgroundColor = styledAttributes.getColor(R.styleable.JoystickView_backgroundColor, DEFAULT_BACKGROUND_COLOR);
             mBorderWidth = styledAttributes.getDimensionPixelSize(R.styleable.JoystickView_borderWidth, DEFAULT_WIDTH_BORDER);
         } finally {
             styledAttributes.recycle();
@@ -104,11 +109,19 @@ public class JoystickView extends View
         mPaintCircleBorder.setColor(mBorderColor);
         mPaintCircleBorder.setStyle(Paint.Style.STROKE);
         mPaintCircleBorder.setStrokeWidth(mBorderWidth);
+
+        mPaintBackground = new Paint();
+        mPaintBackground.setAntiAlias(true);
+        mPaintBackground.setColor(mBackgroundColor);
+        mPaintBackground.setStyle(Paint.Style.FILL);
     }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
+        // Draw the background
+        canvas.drawCircle(mCenterX, mCenterY, mBorderRadius, mPaintBackground);
+
         // Draw the circle border
         canvas.drawCircle(mCenterX, mCenterY, mBorderRadius, mPaintCircleBorder);
 
@@ -225,6 +238,17 @@ public class JoystickView extends View
 
     public void setBorderColor(int newColor){
         mBorderColor=newColor;
+    }
+
+
+    @Override
+    public void setBackgroundColor(int newColor) {
+        mBackgroundColor = newColor;
+    }
+
+
+    public void setBorderWidth(int newWidth) {
+        mBorderWidth = newWidth;
     }
 
 
