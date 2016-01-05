@@ -23,7 +23,7 @@ public class JoystickView extends View
 
 
     // CONSTANTS
-    public static final int DEFAULT_LOOP_INTERVAL = 100; // in milliseconds
+    private static final int DEFAULT_LOOP_INTERVAL = 50; // in milliseconds
 
 
     private static final int DEFAULT_COLOR = Color.BLACK;
@@ -250,6 +250,11 @@ public class JoystickView extends View
 
     public void setBorderWidth(int newWidth) {
         mBorderWidth = newWidth;
+    }
+
+
+    public void setOnJoystickListener(OnJoystickListener listener) {
+        setOnJoystickListener(listener, DEFAULT_LOOP_INTERVAL);
     }
 
 
