@@ -215,7 +215,8 @@ public class JoystickView extends View
 
 
     private int getAngle() {
-        return (int) Math.toDegrees(Math.atan2(mCenterY - mPosY, mPosX - mCenterX));
+        int angle = (int) Math.toDegrees(Math.atan2(mCenterY - mPosY, mPosX - mCenterX));
+        return angle < 0 ? angle + 360 : angle; // make it as a regular counter-clock protractor
     }
 
 
