@@ -13,9 +13,18 @@ import android.view.View;
 public class JoystickView extends View {
 
 
+    // INTERFACE
+    public interface OnJoystickListener {
+
+        void onMove(int angle, int strength);
+    }
+
+
+    // CONSTANTS
     private static final int DEFAULT_SIZE = 200;
     private static final double RATIO_SIZE_BUTTON = 0.25;
     private static final double RATIO_SIZE_BORDER = 0.75;
+
 
     // DRAWING
     private int mButtonColor;
@@ -32,6 +41,9 @@ public class JoystickView extends View {
     // SIZE
     private int mBorderRadius;
     private int mButtonRadius;
+
+
+    private OnJoystickListener mCallback;
 
 
     /*
@@ -172,5 +184,10 @@ public class JoystickView extends View {
 
     public void setBorderColor(int newColor){
         mBorderColor=newColor;
+    }
+
+
+    public void setOnJoystickListener(OnJoystickListener listener) {
+        mCallback = listener;
     }
 }
