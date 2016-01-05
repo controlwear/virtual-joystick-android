@@ -10,7 +10,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class JoystickView extends View {
+public class JoystickView extends View
+        implements
+        Runnable {
 
 
     // INTERFACE
@@ -21,6 +23,9 @@ public class JoystickView extends View {
 
 
     // CONSTANTS
+    public static final int DEFAULT_LOOP_INTERVAL = 100; // in milliseconds
+
+
     private static final int DEFAULT_SIZE = 200;
     private static final double RATIO_SIZE_BUTTON = 0.25;
     private static final double RATIO_SIZE_BORDER = 0.75;
@@ -44,6 +49,8 @@ public class JoystickView extends View {
 
 
     private OnJoystickListener mCallback;
+    private long mLoopInterval = DEFAULT_LOOP_INTERVAL;
+    private Thread mThread = new Thread(this);
 
 
     /*
@@ -163,13 +170,27 @@ public class JoystickView extends View {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             mPosX = mCenterX;
             mPosY = mCenterY;
+
+            mThread.interrupt();
+
+            if (mCallback != null)
+                mCallback.onMove(getAngle(), getPower());
+        }
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (mThread != null && mThread.isAlive()) {
+                mThread.interrupt();
+            }
+
+            mThread = new Thread(this);
+            mThread.start();
+
+            if (mCallback != null)
+                mCallback.onMove(getAngle(), getPower());
         }
 
         // to force a new draw
         invalidate();
-
-        if (mCallback != null)
-            mCallback.onMove(getAngle(), getPower());
 
         return true;
     }
@@ -202,7 +223,32 @@ public class JoystickView extends View {
     }
 
 
-    public void setOnJoystickListener(OnJoystickListener listener) {
+    public void setOnJoystickListener(OnJoystickListener listener, int loopInterval) {
         mCallback = listener;
+        mLoopInterval = loopInterval;
+    }
+
+
+    /*
+    IMPLEMENTS
+     */
+
+
+    @Override // Runnable
+    public void run() {
+        while (!Thread.interrupted()) {
+            post(new Runnable() {
+                public void run() {
+                    if (mCallback != null)
+                        mCallback.onMove(getAngle(), getPower());
+                }
+            });
+
+            try {
+                Thread.sleep(mLoopInterval);
+            } catch (InterruptedException e) {
+                break;
+            }
+        }
     }
 }
