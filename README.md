@@ -2,12 +2,12 @@
 
 _To create this library I get inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (he is a genius!)_
 
-This library provide a very simple and ready-to-use custom view which emulate a joystick for Android.
+This library provides a very simple and ready-to-use custom view which emulates a joystick for Android.
 
-![Alt text](/misc/ss_mobile_landscape_joystick.png?raw=true "Double Joystick")
+![Alt text](/misc/ss_mobile_landscape_joystick.png?raw=true "Double Joystick with custom size and colors")
 
 ### Gist
-Here is a very simple snippets to use it. Just set the `onJoystickListener` to retrieve its angle and strength. The angle follow the rules of a simple counter-clock protractor
+Here is a very simple snippets to use it. Just set the `onJoystickListener` to retrieve its angle and strength.
 
 ```java
 @Override
@@ -26,8 +26,11 @@ protected void onCreate(Bundle savedInstanceState) {
     });
 }
 ```
+The **angle** follow the rules of a simple **counter-clock** protractor. The **strength is percentage** of how far the button is **from the center to the border**.
 
-By default the **refresh rate** to get the data is **20/sec (every 50ms)**. If you want more or less just set the listener with one more parameter to set the refresh rate in milliseconds.
+![Alt text](/misc/virtual-joystick.png?raw=true "Explanation")
+
+By default the **refresh rate** to get the data is **20/sec (every 50ms)**. If you want more or less just set the listener with one more parameters to set the refresh rate in milliseconds.
 ```java
 joystick.setOnJoystickListener(new JoystickView.OnJoystickListener() { ... }, 17); // around 60/sec
 ```
