@@ -56,12 +56,8 @@ Here is an example for your layout resources
 
 ## Download
 ### Gradle
-```
-coming soon
-```
-### Maven
-```
-coming soon
+```java
+compile 'io.github.controlwear:virtualjoystick:0.9.0'
 ```
 
 ## Contributing
