@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-_To create this library I get inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
+_I created this library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
 This library provides a very simple and **ready-to-use** custom view which emulates a joystick for Android.
 
