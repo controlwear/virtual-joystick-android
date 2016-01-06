@@ -23,3 +23,27 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
 }
+
+ext {
+    // Where you will see your artifact in Bintray's web interface
+    // The "bintrayName" should match the name of the Bintray repro.
+    bintrayRepo = 'maven'
+    bintrayName = 'virtual-joystick-android'
+
+    // Maven metadata
+    publishedGroupId = 'io.github.controlwear'
+    libraryName = 'virtual-joystick-android'
+    // Save yourself a head ache, and set this equal to the name of the Android Studio library
+    // module. The artifact name needs to match the name of the library.
+    artifact = 'virtualjoystick'
+
+    libraryDescription = 'This library provides a very simple and ready-to-use custom view which emulates a joystick for Android.'
+    libraryVersion = '0.9.0'
+
+    developerId = 'makowildcat'
+    developerName = 'Damien Brun'
+    developerEmail = 'makowildcat@gmail.com'
+}
+
+apply from: 'https://raw.githubusercontent.com/attwellbrian/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/attwellbrian/JCenter/master/bintrayv1.gradle'
