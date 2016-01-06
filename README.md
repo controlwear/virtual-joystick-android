@@ -1,8 +1,8 @@
 # virtual-joystick-android
 
-_To create this library I get inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (he is a genius!)_
+_To create this library I get inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
-This library provides a very simple and ready-to-use custom view which emulates a joystick for Android.
+This library provides a very simple and **ready-to-use** custom view which emulates a joystick for Android.
 
 ![Alt text](/misc/ss_mobile_landscape_joystick.png?raw=true "Double Joystick with custom size and colors")
 
@@ -78,3 +78,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+## About 44screens
+![alt tag](http://www.44screens.com/fr/wp-content/uploads/2014/09/logo_44screens_cmyk-Converted.png "44screens")
+
+**virtual-joystick-android** is an open source project created by Damien Brun (spare time) and partially funded by [44screens](http://www.44screens.com).
+44screens is a lovely start-up specialized in augmented reality, mobile and wearable apps.
