@@ -71,6 +71,11 @@ public class JoystickView extends View
     }
 
 
+    /**
+     * Constructor, try to get the attributes or use the default values and setup the paints accordingly.
+     * @param context Context
+     * @param attrs Attributes, useful to customize the view
+     */
     public JoystickView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -98,6 +103,9 @@ public class JoystickView extends View
     }
 
 
+    /**
+     * Initialize the drawing according to some attributes
+     */
     protected void setupPaint() {
         mPaintCircleButton = new Paint();
         mPaintCircleButton.setAntiAlias(true);
@@ -192,7 +200,7 @@ public class JoystickView extends View
             mThread.interrupt();
 
             if (mCallback != null)
-                mCallback.onMove(getAngle(), getPower());
+                mCallback.onMove(getAngle(), getStrength());
         }
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -204,7 +212,7 @@ public class JoystickView extends View
             mThread.start();
 
             if (mCallback != null)
-                mCallback.onMove(getAngle(), getPower());
+                mCallback.onMove(getAngle(), getStrength());
         }
 
         // to force a new draw
@@ -214,13 +222,21 @@ public class JoystickView extends View
     }
 
 
+    /**
+     * Process the angle following the 360° counter-clock protractor rules.
+     * @return the angle of the button
+     */
     private int getAngle() {
         int angle = (int) Math.toDegrees(Math.atan2(mCenterY - mPosY, mPosX - mCenterX));
         return angle < 0 ? angle + 360 : angle; // make it as a regular counter-clock protractor
     }
 
 
-    private int getPower() {
+    /**
+     * Process the strength as a percentage of the distance between the center and the border.
+     * @return the strength of the button
+     */
+    private int getStrength() {
         return (int) (100 * Math.sqrt((mPosX - mCenterX)
                 * (mPosX - mCenterX) + (mPosY - mCenterY)
                 * (mPosY - mCenterY)) / mBorderRadius);
@@ -275,7 +291,7 @@ public class JoystickView extends View
             post(new Runnable() {
                 public void run() {
                     if (mCallback != null)
-                        mCallback.onMove(getAngle(), getPower());
+                        mCallback.onMove(getAngle(), getStrength());
                 }
             });
 
