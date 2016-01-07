@@ -57,7 +57,7 @@ Here is an example for your layout resources
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:0.9.0'
+compile 'io.github.controlwear:virtualjoystick:0.9.5'
 ```
 
 ## Contributing
