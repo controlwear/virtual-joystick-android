@@ -66,8 +66,13 @@ public class JoystickView extends View
      */
 
 
+    public JoystickView(Context context) {
+        this(context, null);
+    }
+
+
     public JoystickView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        this(context, null);
     }
 
 
@@ -98,30 +103,11 @@ public class JoystickView extends View
     }
 
 
-    public JoystickView(Context context) {
-        super(context);
-    }
-
-
     /**
      * Initialize the drawing according to some attributes
      */
     protected void setupPaint() {
-        mPaintCircleButton = new Paint();
-        mPaintCircleButton.setAntiAlias(true);
-        mPaintCircleButton.setColor(mButtonColor);
-        mPaintCircleButton.setStyle(Paint.Style.FILL);
 
-        mPaintCircleBorder = new Paint();
-        mPaintCircleBorder.setAntiAlias(true);
-        mPaintCircleBorder.setColor(mBorderColor);
-        mPaintCircleBorder.setStyle(Paint.Style.STROKE);
-        mPaintCircleBorder.setStrokeWidth(mBorderWidth);
-
-        mPaintBackground = new Paint();
-        mPaintBackground.setAntiAlias(true);
-        mPaintBackground.setColor(mBackgroundColor);
-        mPaintBackground.setStyle(Paint.Style.FILL);
     }
 
 
