@@ -6,24 +6,41 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 
 public class JoystickView extends View
         implements
         Runnable {
 
 
-    // INTERFACE
+    /*
+    INTERFACES
+    */
     public interface OnJoystickListener {
 
         void onMove(int angle, int strength);
     }
 
 
+    /**
+     * Interface definition for a callback to be invoked when a JoystickView
+     * is touched and held by multiple pointers.
+     */
+    public interface OnMultipleLongPressListener {
+        /**
+         * Called when a JoystickView has been touch and held enough time by multiple pointers.
+         */
+        void onMultipleLongPress();
+    }
+
+
     // CONSTANTS
     private static final int DEFAULT_LOOP_INTERVAL = 50; // in milliseconds
+    private static final int MOVE_TOLERANCE = 5;
 
 
     private static final int DEFAULT_COLOR = Color.BLACK;
@@ -54,6 +71,16 @@ public class JoystickView extends View
     private OnJoystickListener mCallback;
     private long mLoopInterval = DEFAULT_LOOP_INTERVAL;
     private Thread mThread = new Thread(this);
+
+
+    /**
+     * Listener used to dispatch MultipleLongPress event
+     */
+    private OnMultipleLongPressListener mOnMultipleLongPressListener;
+
+    private final Handler mHandlerMultipleLongPress = new Handler();
+    private Runnable mRunnableMultipleLongPress;
+    private int mMoveTolerance;
 
 
     /*
@@ -115,6 +142,17 @@ public class JoystickView extends View
         mPaintBackground.setAntiAlias(true);
         mPaintBackground.setColor(backgroundColor);
         mPaintBackground.setStyle(Paint.Style.FILL);
+
+
+        // Init Runnable for MultiLongPress
+
+        mRunnableMultipleLongPress = new Runnable() {
+            @Override
+            public void run() {
+                if (mOnMultipleLongPressListener != null)
+                    mOnMultipleLongPressListener.onMultipleLongPress();
+            }
+        };
     }
 
 
@@ -208,6 +246,33 @@ public class JoystickView extends View
                 mCallback.onMove(getAngle(), getStrength());
         }
 
+        // handle long press with multiple touch only
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_POINTER_DOWN: {
+                // when the second finger touch
+                if (event.getPointerCount() == 2) {
+                    mHandlerMultipleLongPress.postDelayed(mRunnableMultipleLongPress, ViewConfiguration.getLongPressTimeout());
+                    mMoveTolerance = MOVE_TOLERANCE;
+                }
+                break;
+            }
+
+            case MotionEvent.ACTION_MOVE:
+                mMoveTolerance--;
+                if (mMoveTolerance == 0) {
+                    mHandlerMultipleLongPress.removeCallbacks(mRunnableMultipleLongPress);
+                }
+                break;
+
+            case MotionEvent.ACTION_POINTER_UP: {
+                // when the last multiple touch is released
+                if (event.getPointerCount() == 2) {
+                    mHandlerMultipleLongPress.removeCallbacks(mRunnableMultipleLongPress);
+                }
+                break;
+            }
+        }
+
         // to force a new draw
         invalidate();
 
@@ -270,6 +335,15 @@ public class JoystickView extends View
     public void setOnJoystickListener(OnJoystickListener listener, int loopInterval) {
         mCallback = listener;
         mLoopInterval = loopInterval;
+    }
+
+
+    /**
+     * Register a callback to be invoked when this JoystickView is touch and held by multiple pointers
+     * @param l The callback that will run
+     */
+    public void setOnMultiLongPressListener(OnMultipleLongPressListener l) {
+        mOnMultipleLongPressListener = l;
     }
 
 
