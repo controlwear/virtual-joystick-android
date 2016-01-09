@@ -1,13 +1,13 @@
 # virtual-joystick-android
 
-_I created this library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
+_I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
 This library provides a very simple and **ready-to-use** custom view which emulates a joystick for Android.
 
 ![Alt text](/misc/ss_mobile_landscape_joystick.png?raw=true "Double Joystick with custom size and colors")
 
 ### Gist
-Here is a very simple snippets to use it. Just set the `onJoystickListener` to retrieve its angle and strength.
+Here is a very simple snippets to use it. Just set the `onMoveListener` to retrieve its angle and strength.
 
 ```java
 @Override
@@ -18,7 +18,7 @@ protected void onCreate(Bundle savedInstanceState) {
     ...
 
     JoystickView joystick = (JoystickView) findViewById(R.id.joystickView);
-    joystick.setOnJoystickListener(new JoystickView.OnJoystickListener() {
+    joystick.setOnMoveListener(new JoystickView.OnMoveListener() {
         @Override
         public void onMove(int angle, int strength) {
             // do whatever you want
@@ -32,7 +32,7 @@ The **angle** follow the rules of a simple **counter-clock** protractor. The **s
 
 By default the **refresh rate** to get the data is **20/sec (every 50ms)**. If you want more or less just set the listener with one more parameters to set the refresh rate in milliseconds.
 ```java
-joystick.setOnJoystickListener(new JoystickView.OnJoystickListener() { ... }, 17); // around 60/sec
+joystick.setOnMoveListener(new JoystickView.OnMoveListener() { ... }, 17); // around 60/sec
 ```
 
 ### Attributes
@@ -51,13 +51,25 @@ Here is an example for your layout resources
     custom:borderWidth="4dp"/>
 ```
 
-## Samples
+### Wearable
+If you use this library in Wearable app, you will probably disable the Swipe-To-Dismiss Gesture and implement the Long Press to Dismiss Pattern, which could be a problem for a Joystick Pattern (because we usually let the user touch the joystick as long as she/he wants), in that case you can set another convenient listener: `OnMultipleLongPressListener` which will be invoked only with multiple pointers (at least two fingers) instead of one.
+```java
+joystick.setOnMultiLongPressListener(new JoystickView.OnMultipleLongPressListener() {
+    @Override
+    public void onMultipleLongPress() {
+        ... // eg. mDismissOverlay.show();
+    }
+});
+```
+Or better, if you just want a simple Joystick (and few other cool stuff) as a controller for your mobile app you can use the following related project ;)
+
+## Related project
 - [Control Wear](https://github.com/controlwear/cw-app-android) is a very simple universal controller (app and library) which implement this virtual joystick on smartwatch.
 
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:0.9.5'
+compile 'io.github.controlwear:virtualjoystick:0.9.7'
 ```
 
 ## Contributing

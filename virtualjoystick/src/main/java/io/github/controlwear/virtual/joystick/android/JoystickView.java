@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
+import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,8 +21,19 @@ public class JoystickView extends View
     /*
     INTERFACES
     */
-    public interface OnJoystickListener {
 
+
+    /**
+     * Interface definition for a callback to be invoked when a
+     * JoystickView's button is moved
+     */
+    public interface OnMoveListener {
+
+        /**
+         * Called when a JoystickView's button has been moved
+         * @param angle current angle
+         * @param strength current strength
+         */
         void onMove(int angle, int strength);
     }
 
@@ -68,7 +80,7 @@ public class JoystickView extends View
     private int mBorderRadius;
 
 
-    private OnJoystickListener mCallback;
+    private OnMoveListener mCallback;
     private long mLoopInterval = DEFAULT_LOOP_INTERVAL;
     private Thread mThread = new Thread(this);
 
@@ -306,34 +318,59 @@ public class JoystickView extends View
      */
 
 
-    public void setButtonColor(int newColor){
-        mPaintCircleButton.setColor(newColor);
+    /**
+     * Set the button color for this JoystickView.
+     * @param color the color of the button
+     */
+    public void setButtonColor(@ColorInt int color){
+        mPaintCircleButton.setColor(color);
     }
 
 
-    public void setBorderColor(int newColor){
-        mPaintCircleBorder.setColor(newColor);
+    /**
+     * Set the border color for this JoystickView.
+     * @param color the color of the border
+     */
+    public void setBorderColor(@ColorInt int color){
+        mPaintCircleBorder.setColor(color);
     }
 
 
+    /**
+     * Set the background color for this JoystickView.
+     * @param color the color of the background
+     */
     @Override
-    public void setBackgroundColor(int newColor) {
-        mPaintBackground.setColor(newColor);
+    public void setBackgroundColor(@ColorInt int color) {
+        mPaintBackground.setColor(color);
     }
 
 
-    public void setBorderWidth(int newWidth) {
-        mPaintCircleBorder.setStrokeWidth(newWidth);
+    /**
+     * Set the border width for this JoystickView.
+     * @param width the width of the border
+     */
+    public void setBorderWidth(int width) {
+        mPaintCircleBorder.setStrokeWidth(width);
     }
 
 
-    public void setOnJoystickListener(OnJoystickListener listener) {
-        setOnJoystickListener(listener, DEFAULT_LOOP_INTERVAL);
+    /**
+     * Register a callback to be invoked when this JoystickView's button is moved
+     * @param l The callback that will run
+     */
+    public void setOnMoveListener(OnMoveListener l) {
+        setOnMoveListener(l, DEFAULT_LOOP_INTERVAL);
     }
 
 
-    public void setOnJoystickListener(OnJoystickListener listener, int loopInterval) {
-        mCallback = listener;
+    /**
+     * Register a callback to be invoked when this JoystickView's button is moved
+     * @param l The callback that will run
+     * @param loopInterval Refresh rate to be invoked in milliseconds
+     */
+    public void setOnMoveListener(OnMoveListener l, int loopInterval) {
+        mCallback = l;
         mLoopInterval = loopInterval;
     }
 
