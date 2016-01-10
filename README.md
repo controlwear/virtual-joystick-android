@@ -1,5 +1,7 @@
 # virtual-joystick-android
 
+**v0.9.8**
+
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
 This library provides a very simple and **ready-to-use** custom view which emulates a joystick for Android.
@@ -69,7 +71,7 @@ Or better, if you just want a simple Joystick (and few other cool stuff) as a co
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:0.9.7'
+compile 'io.github.controlwear:virtualjoystick:0.9.8'
 ```
 
 ## Contributing
