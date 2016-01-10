@@ -52,7 +52,7 @@ public class JoystickView extends View
 
     // CONSTANTS
     private static final int DEFAULT_LOOP_INTERVAL = 50; // in milliseconds
-    private static final int MOVE_TOLERANCE = 5;
+    private static final int MOVE_TOLERANCE = 10;
 
 
     private static final int DEFAULT_COLOR = Color.BLACK;
@@ -237,8 +237,7 @@ public class JoystickView extends View
         }
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            mPosX = mCenterX;
-            mPosY = mCenterY;
+            resetButtonPosition();
 
             mThread.interrupt();
 
@@ -263,7 +262,7 @@ public class JoystickView extends View
             case MotionEvent.ACTION_POINTER_DOWN: {
                 // when the second finger touch
                 if (event.getPointerCount() == 2) {
-                    mHandlerMultipleLongPress.postDelayed(mRunnableMultipleLongPress, ViewConfiguration.getLongPressTimeout());
+                    mHandlerMultipleLongPress.postDelayed(mRunnableMultipleLongPress, ViewConfiguration.getLongPressTimeout()*2);
                     mMoveTolerance = MOVE_TOLERANCE;
                 }
                 break;
@@ -313,6 +312,15 @@ public class JoystickView extends View
     }
 
 
+    /**
+     * Reset the button position to the center.
+     */
+    public void resetButtonPosition() {
+        mPosX = mCenterX;
+        mPosY = mCenterY;
+    }
+
+
     /*
     SETTERS
      */
@@ -324,6 +332,7 @@ public class JoystickView extends View
      */
     public void setButtonColor(@ColorInt int color){
         mPaintCircleButton.setColor(color);
+        invalidate();
     }
 
 
@@ -333,6 +342,7 @@ public class JoystickView extends View
      */
     public void setBorderColor(@ColorInt int color){
         mPaintCircleBorder.setColor(color);
+        invalidate();
     }
 
 
@@ -343,6 +353,7 @@ public class JoystickView extends View
     @Override
     public void setBackgroundColor(@ColorInt int color) {
         mPaintBackground.setColor(color);
+        invalidate();
     }
 
 
@@ -352,6 +363,7 @@ public class JoystickView extends View
      */
     public void setBorderWidth(int width) {
         mPaintCircleBorder.setStrokeWidth(width);
+        invalidate();
     }
 
 
