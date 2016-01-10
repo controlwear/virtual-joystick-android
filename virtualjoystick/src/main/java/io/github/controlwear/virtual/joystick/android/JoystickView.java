@@ -50,17 +50,48 @@ public class JoystickView extends View
     }
 
 
-    // CONSTANTS
+    /*
+    CONSTANTS
+    */
+
+    /**
+     * Default refresh rate as a time in milliseconds to send move values through callback
+     */
     private static final int DEFAULT_LOOP_INTERVAL = 50; // in milliseconds
+
+    /**
+     * Used to allow a slight move without cancelling MultipleLongPress
+     */
     private static final int MOVE_TOLERANCE = 10;
 
-
+    /**
+     * Default color for button and border
+     */
     private static final int DEFAULT_COLOR = Color.BLACK;
+
+    /**
+     * Default background color
+     */
     private static final int DEFAULT_BACKGROUND_COLOR = Color.TRANSPARENT;
+
+    /**
+     * Default View's size
+     */
     private static final int DEFAULT_SIZE = 200;
+
+    /**
+     * Ratio use to define the size of the button
+     */
     private static final double RATIO_SIZE_BUTTON = 0.25;
+
+    /**
+     * Ratio use to define the size of border (as the distance from the center)
+     */
     private static final double RATIO_SIZE_BORDER = 0.75;
 
+    /**
+     * Default border's width
+     */
     private static final int DEFAULT_WIDTH_BORDER = 3;
 
 
@@ -80,7 +111,11 @@ public class JoystickView extends View
     private int mBorderRadius;
 
 
+    /**
+     * Listener used to dispatch OnMove event
+     */
     private OnMoveListener mCallback;
+
     private long mLoopInterval = DEFAULT_LOOP_INTERVAL;
     private Thread mThread = new Thread(this);
 
@@ -100,6 +135,10 @@ public class JoystickView extends View
      */
 
 
+    /**
+     * Simple constructor to use when creating a JoystickView from code.
+     * Call another constructor passing null to Attribute.
+     */
     public JoystickView(Context context) {
         this(context, null);
     }
@@ -111,9 +150,12 @@ public class JoystickView extends View
 
 
     /**
-     * Constructor, try to get the attributes or use the default values and setup the paints accordingly.
-     * @param context Context
-     * @param attrs Attributes, useful to customize the view
+     * Constructor that is called when inflating a JoystickView from XML. This is called
+     * when a JoystickView is being constructed from an XML file, supplying attributes
+     * that were specified in the XML file.
+     * @param context The Context the JoystickView is running in, through which it can
+     *        access the current theme, resources, etc.
+     * @param attrs The attributes of the XML tag that is inflating the JoystickView.
      */
     public JoystickView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -168,6 +210,10 @@ public class JoystickView extends View
     }
 
 
+    /**
+     * Draw the background, the border and the button
+     * @param canvas the canvas on which the shapes will be drawn
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         // Draw the background
@@ -181,16 +227,25 @@ public class JoystickView extends View
     }
 
 
+    /**
+     * This is called during layout when the size of this view has changed.
+     * Here we get the center of the view and the radius to draw all the shapes.
+     *
+     * @param w Current width of this view.
+     * @param h Current height of this view.
+     * @param oldW Old width of this view.
+     * @param oldH Old height of this view.
+     */
     @Override
-    protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld) {
-        super.onSizeChanged(xNew, yNew, xOld, yOld);
+    protected void onSizeChanged(int w, int h, int oldW, int oldH) {
+        super.onSizeChanged(w, h, oldW, oldH);
 
         // get the center of view to position circle
         mCenterX = mPosX = getWidth() / 2;
         mCenterY = mPosY = getWidth() / 2;
 
         // radius based on smallest size : height OR width
-        int d = Math.min(xNew, yNew);
+        int d = Math.min(w, h);
         mButtonRadius = (int) (d / 2 * RATIO_SIZE_BUTTON);
         mBorderRadius = (int) (d / 2 * RATIO_SIZE_BORDER);
     }
@@ -221,6 +276,13 @@ public class JoystickView extends View
      */
 
 
+    /**
+     * Handle touch screen motion event. Move the button according to the
+     * finger coordinate and detect longPress by multiple pointers only.
+     *
+     * @param event The motion event.
+     * @return True if the event was handled, false otherwise.
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // to move the button according to the finger coordinate
