@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v0.9.8**
+**v0.9.9**
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -39,7 +39,7 @@ joystick.setOnMoveListener(new JoystickView.OnMoveListener() { ... }, 17); // ar
 
 ### Attributes
 
-You can customize the joystick according to these attributes `buttonColor`, `borderColor`, `backgroundColor` and `borderWidth`
+You can customize the joystick according to these attributes `JV_buttonColor`, `JV_borderColor`, `JV_backgroundColor` and `JV_borderWidth`
 
 Here is an example for your layout resources
 ```xml
@@ -47,10 +47,10 @@ Here is an example for your layout resources
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    custom:buttonColor="#FF0000"
-    custom:borderColor="#0000FF"
-    custom:backgroundColor="#11000000"
-    custom:borderWidth="4dp"/>
+    custom:JV_buttonColor="#FF0000"
+    custom:JV_borderColor="#0000FF"
+    custom:JV_backgroundColor="#11000000"
+    custom:JV_borderWidth="4dp"/>
 ```
 
 ### Wearable
@@ -93,8 +93,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-## About 44screens
+## Authors
 ![alt tag](http://www.44screens.com/fr/wp-content/uploads/2014/09/logo_44screens_cmyk-Converted.png "44screens")
 
-**virtual-joystick-android** is an open source project created by Damien Brun (spare time) and partially funded by [44screens](http://www.44screens.com).
+**virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [44screens](http://www.44screens.com).
 44screens is a lovely start-up specialized in augmented reality, mobile and wearable apps.
+
+Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a> for contributing.
