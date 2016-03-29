@@ -71,7 +71,7 @@ Or better, if you just want a simple Joystick (and few other cool stuff) as a co
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:0.9.8'
+compile 'io.github.controlwear:virtualjoystick:0.9.9'
 ```
 
 ## Contributing
