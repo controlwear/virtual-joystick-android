@@ -4,13 +4,13 @@
 
     <declare-styleable name="JoystickView">
 
-        <attr name="buttonColor" format="color"/>
+        <attr name="JV_buttonColor" format="color"/>
 
-        <attr name="borderColor" format="color"/>
+        <attr name="JV_borderColor" format="color"/>
 
-        <attr name="backgroundColor" format="color"/>
+        <attr name="JV_backgroundColor" format="color"/>
 
-        <attr name="borderWidth" format="dimension"/>
+        <attr name="JV_borderWidth" format="dimension"/>
 
     </declare-styleable>
 
