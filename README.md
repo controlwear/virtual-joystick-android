@@ -65,9 +65,6 @@ joystick.setOnMultiLongPressListener(new JoystickView.OnMultipleLongPressListene
 ```
 Or better, if you just want a simple Joystick (and few other cool stuff) as a controller for your mobile app you can use the following related project ;)
 
-## Related project
-- [Control Wear](https://github.com/controlwear/cw-app-android) is a very simple universal controller (app and library) which implement this virtual joystick on smartwatch.
-
 ## Download
 ### Gradle
 ```java
@@ -94,7 +91,6 @@ limitations under the License.
 ```
 
 ## Authors
-![alt tag](http://www.44screens.com/fr/wp-content/uploads/2014/09/logo_44screens_cmyk-Converted.png "44screens")
 
 **virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [44screens](http://www.44screens.com).
 44screens is a lovely start-up specialized in augmented reality, mobile and wearable apps.
