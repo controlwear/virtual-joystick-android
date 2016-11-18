@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v0.9.9**
+**v1.0.0**
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -39,9 +39,9 @@ joystick.setOnMoveListener(new JoystickView.OnMoveListener() { ... }, 17); // ar
 
 ### Attributes
 
-You can customize the joystick according to these attributes `JV_buttonColor`, `JV_borderColor`, `JV_backgroundColor` and `JV_borderWidth`
+You can customize the joystick according to these attributes `JV_buttonColor`, `JV_borderColor`, `JV_backgroundColor`, `JV_borderWidth` and `JV_fixedCenter`
 
-Here is an example for your layout resources
+Here is an example for your layout resources:
 ```xml
 <io.github.controlwear.virtual.joystick.android.JoystickView
     xmlns:custom="http://schemas.android.com/apk/res-auto"
@@ -50,7 +50,17 @@ Here is an example for your layout resources
     custom:JV_buttonColor="#FF0000"
     custom:JV_borderColor="#0000FF"
     custom:JV_backgroundColor="#11000000"
-    custom:JV_borderWidth="4dp"/>
+    custom:JV_borderWidth="4dp"
+    custom:JV_fixedCenter="false"/>
+```
+
+#### FixedCenter or Not?
+If you don’t set up this parameter, it will be FixedCenter by default, which is the regular behavior.
+
+However, sometimes, it is convenient to have an auto-defined center which will be defined each time you touch down the screen with your finger (center position will be limited inside the JoystickView’s width/height).
+As every parameter you can set it up in xml (as above) or in Java:
+```java
+joystick.setFixedCenter(false); // set up auto-define center
 ```
 
 ### Wearable
@@ -68,7 +78,7 @@ Or better, if you just want a simple Joystick (and few other cool stuff) as a co
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:0.9.9'
+compile 'io.github.controlwear:virtualjoystick:1.0.0'
 ```
 
 ## Contributing
@@ -95,4 +105,4 @@ limitations under the License.
 **virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [44screens](http://www.44screens.com).
 44screens is a lovely start-up specialized in augmented reality, mobile and wearable apps.
 
-Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a> for contributing.
+Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a> and <a href="https://github.com/teancake" class="user-mention">@teancake</a> for contributing.

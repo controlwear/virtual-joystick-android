@@ -94,6 +94,11 @@ public class JoystickView extends View
      */
     private static final int DEFAULT_WIDTH_BORDER = 3;
 
+    /**
+     * Default behavior to fixed center (not auto-defined)
+     */
+    private static final boolean DEFAULT_FIXED_CENTER = true;
+
 
     // DRAWING
     private Paint mPaintCircleButton;
@@ -105,6 +110,12 @@ public class JoystickView extends View
     private int mPosY = 0;
     private int mCenterX = 0;
     private int mCenterY = 0;
+
+    /**
+     * Used to adapt behavior whether it is auto-defined center (false) or fixed center (true)
+     */
+    private boolean mFixedCenter;
+
 
     // SIZE
     private int mButtonRadius;
@@ -145,7 +156,7 @@ public class JoystickView extends View
 
 
     public JoystickView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, null);
+        this(context, attrs);
     }
 
 
@@ -175,6 +186,7 @@ public class JoystickView extends View
             borderColor = styledAttributes.getColor(R.styleable.JoystickView_JV_borderColor, DEFAULT_COLOR);
             backgroundColor = styledAttributes.getColor(R.styleable.JoystickView_JV_backgroundColor, DEFAULT_BACKGROUND_COLOR);
             borderWidth = styledAttributes.getDimensionPixelSize(R.styleable.JoystickView_JV_borderWidth, DEFAULT_WIDTH_BORDER);
+            mFixedCenter = styledAttributes.getBoolean(R.styleable.JoystickView_JV_fixedCenter, DEFAULT_FIXED_CENTER);
         } finally {
             styledAttributes.recycle();
         }
@@ -210,6 +222,13 @@ public class JoystickView extends View
     }
 
 
+    private void initPosition() {
+        // get the center of view to position circle
+        mCenterX = mPosX = getWidth() / 2;
+        mCenterY = mPosY = getWidth() / 2;
+    }
+
+
     /**
      * Draw the background, the border and the button
      * @param canvas the canvas on which the shapes will be drawn
@@ -240,9 +259,7 @@ public class JoystickView extends View
     protected void onSizeChanged(int w, int h, int oldW, int oldH) {
         super.onSizeChanged(w, h, oldW, oldH);
 
-        // get the center of view to position circle
-        mCenterX = mPosX = getWidth() / 2;
-        mCenterY = mPosY = getWidth() / 2;
+        initPosition();
 
         // radius based on smallest size : height OR width
         int d = Math.min(w, h);
@@ -289,15 +306,6 @@ public class JoystickView extends View
         mPosX = (int) event.getX();
         mPosY = (int) event.getY();
 
-        double abs = Math.sqrt((mPosX - mCenterX) * (mPosX - mCenterX)
-                + (mPosY - mCenterY) * (mPosY - mCenterY));
-
-        // move the button only within its boundaries
-        if (abs > mBorderRadius) {
-            mPosX = (int) ((mPosX - mCenterX) * mBorderRadius / abs + mCenterX);
-            mPosY = (int) ((mPosY - mCenterY) * mBorderRadius / abs + mCenterY);
-        }
-
         if (event.getAction() == MotionEvent.ACTION_UP) {
             resetButtonPosition();
 
@@ -319,8 +327,16 @@ public class JoystickView extends View
                 mCallback.onMove(getAngle(), getStrength());
         }
 
-        // handle long press with multiple touch only
+        // handle first touch and long press with multiple touch only
         switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                // when the first touch occurs we update the center (if set to auto-defined center)
+                if (!mFixedCenter) {
+                    mCenterX = mPosX;
+                    mCenterY = mPosY;
+                }
+                break;
+
             case MotionEvent.ACTION_POINTER_DOWN: {
                 // when the second finger touch
                 if (event.getPointerCount() == 2) {
@@ -344,6 +360,14 @@ public class JoystickView extends View
                 }
                 break;
             }
+        }
+
+        double abs = Math.sqrt((mPosX - mCenterX) * (mPosX - mCenterX)
+                + (mPosY - mCenterY) * (mPosY - mCenterY));
+
+        if (abs > mBorderRadius) {
+            mPosX = (int) ((mPosX - mCenterX) * mBorderRadius / abs + mCenterX);
+            mPosY = (int) ((mPosY - mCenterY) * mBorderRadius / abs + mCenterY);
         }
 
         // to force a new draw
@@ -455,6 +479,20 @@ public class JoystickView extends View
      */
     public void setOnMultiLongPressListener(OnMultipleLongPressListener l) {
         mOnMultipleLongPressListener = l;
+    }
+
+
+    /**
+     * Set the joystick center's behavior (fixed or auto-defined)
+     * @param fixedCenter True for fixed center, False for auto-defined center based on touch down
+     */
+    public void setFixedCenter(boolean fixedCenter){
+        // if we set to "fixed" we make sure to re-init position related to the width of the joystick
+        if (fixedCenter) {
+            initPosition();
+        }
+        mFixedCenter = fixedCenter;
+        invalidate();
     }
 
 
