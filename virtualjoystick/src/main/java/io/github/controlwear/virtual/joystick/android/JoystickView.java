@@ -111,6 +111,9 @@ public class JoystickView extends View
     private int mCenterX = 0;
     private int mCenterY = 0;
 
+    private int mUICenterX = 0;
+    private int mUICenterY = 0;
+
     /**
      * Used to adapt behavior whether it is auto-defined center (false) or fixed center (true)
      */
@@ -224,8 +227,8 @@ public class JoystickView extends View
 
     private void initPosition() {
         // get the center of view to position circle
-        mCenterX = mPosX = getWidth() / 2;
-        mCenterY = mPosY = getWidth() / 2;
+        mUICenterX = mCenterX = mPosX = getWidth() / 2;
+        mUICenterY = mCenterY = mPosY = getWidth() / 2;
     }
 
 
@@ -236,13 +239,13 @@ public class JoystickView extends View
     @Override
     protected void onDraw(Canvas canvas) {
         // Draw the background
-        canvas.drawCircle(mCenterX, mCenterY, mBorderRadius, mPaintBackground);
+        canvas.drawCircle(mUICenterX, mUICenterY, mBorderRadius, mPaintBackground);
 
         // Draw the circle border
-        canvas.drawCircle(mCenterX, mCenterY, mBorderRadius, mPaintCircleBorder);
+        canvas.drawCircle(mUICenterX, mUICenterY, mBorderRadius, mPaintCircleBorder);
 
         // Draw the circle button
-        canvas.drawCircle(mPosX, mPosY, mButtonRadius, mPaintCircleButton);
+        canvas.drawCircle(mPosX - mCenterX + mUICenterX, mPosY - mCenterY + mUICenterY, mButtonRadius, mPaintCircleButton);
     }
 
 
