@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.0.0**
+**v1.0.1**
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -47,9 +47,9 @@ Here is an example for your layout resources:
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    custom:JV_buttonColor="#FF0000"
-    custom:JV_borderColor="#0000FF"
-    custom:JV_backgroundColor="#11000000"
+    custom:JV_buttonColor="#FF6E40"
+    custom:JV_borderColor="#00796B"
+    custom:JV_backgroundColor="#009688"
     custom:JV_borderWidth="4dp"
     custom:JV_fixedCenter="false"/>
 ```
@@ -78,7 +78,7 @@ Or better, if you just want a simple Joystick (and few other cool stuff) as a co
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.0.0'
+compile 'io.github.controlwear:virtualjoystick:1.0.1'
 ```
 
 ## Contributing
@@ -102,7 +102,6 @@ limitations under the License.
 
 ## Authors
 
-**virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [44screens](http://www.44screens.com).
-44screens is a lovely start-up specialized in augmented reality, mobile and wearable apps.
+**virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [44screens](http://44screens.com/en-us) and [NSERC](http://www.nserc-crsng.gc.ca/index_eng.asp).
 
 Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a> and <a href="https://github.com/teancake" class="user-mention">@teancake</a> for contributing.
