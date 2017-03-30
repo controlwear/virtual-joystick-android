@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.0.1**
+**v1.2.0** _(New version - support custom images)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -39,7 +39,9 @@ joystick.setOnMoveListener(new JoystickView.OnMoveListener() { ... }, 17); // ar
 
 ### Attributes
 
-You can customize the joystick according to these attributes `JV_buttonColor`, `JV_borderColor`, `JV_backgroundColor`, `JV_borderWidth` and `JV_fixedCenter`
+You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_borderColor`, `JV_backgroundColor`, `JV_borderWidth` and `JV_fixedCenter`
+
+If you specified `JV_buttonImage` you don't need `JV_buttonColor`
 
 Here is an example for your layout resources:
 ```xml
@@ -53,6 +55,19 @@ Here is an example for your layout resources:
     custom:JV_borderWidth="4dp"
     custom:JV_fixedCenter="false"/>
 ```
+#### Image
+If you want a more customized joystick, you can use `JV_buttonImage` and the regular `background` attributes to specify drawables. The images will be automatically resized.
+
+```xml
+<io.github.controlwear.virtual.joystick.android.JoystickView
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/joystick_base_blue"
+    custom:JV_buttonImage="@drawable/ball_pink"/>
+```
+
+![Alt text](/misc/ss_mobile_landscape_joystick_with_image.png?raw=true "Left joystick with custom image")
 
 #### FixedCenter or Not?
 If you don’t set up this parameter, it will be FixedCenter by default, which is the regular behavior.
@@ -78,7 +93,7 @@ Or better, if you just want a simple Joystick (and few other cool stuff) as a co
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.0.1'
+compile 'io.github.controlwear:virtualjoystick:1.2.0'
 ```
 
 ## Contributing
@@ -104,4 +119,4 @@ limitations under the License.
 
 **virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [44screens](http://44screens.com/en-us) and [NSERC](http://www.nserc-crsng.gc.ca/index_eng.asp).
 
-Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a> and <a href="https://github.com/teancake" class="user-mention">@teancake</a> for contributing.
+Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">@teancake</a> and <a href="https://github.com/Spettacolo83" class="user-mention">@Spettacolo83</a> for contributing.
