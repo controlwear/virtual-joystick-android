@@ -122,8 +122,8 @@ public class JoystickView extends View
     private int mCenterX = 0;
     private int mCenterY = 0;
 
-    private int mUICenterX = 0;
-    private int mUICenterY = 0;
+    private int mFixedCenterX = 0;
+    private int mFixedCenterY = 0;
 
     /**
      * Used to adapt behavior whether it is auto-defined center (false) or fixed center (true)
@@ -247,8 +247,8 @@ public class JoystickView extends View
 
     private void initPosition() {
         // get the center of view to position circle
-        mUICenterX = mCenterX = mPosX = getWidth() / 2;
-        mUICenterY = mCenterY = mPosY = getWidth() / 2;
+        mFixedCenterX = mCenterX = mPosX = getWidth() / 2;
+        mFixedCenterY = mCenterY = mPosY = getWidth() / 2;
     }
 
 
@@ -259,23 +259,28 @@ public class JoystickView extends View
     @Override
     protected void onDraw(Canvas canvas) {
         // Draw the background
-        canvas.drawCircle(mUICenterX, mUICenterY, mBorderRadius, mPaintBackground);
+        canvas.drawCircle(mFixedCenterX, mFixedCenterY, mBorderRadius, mPaintBackground);
 
         // Draw the circle border
-        canvas.drawCircle(mUICenterX, mUICenterY, mBorderRadius, mPaintCircleBorder);
+        canvas.drawCircle(mFixedCenterX, mFixedCenterY, mBorderRadius, mPaintCircleBorder);
 
         // Draw the button from image
         if (mButtonBitmap != null) {
             canvas.drawBitmap(
                     mButtonBitmap,
-                    mPosX - mCenterX + mUICenterX - mButtonRadius,
-                    mPosY - mCenterY + mUICenterY - mButtonRadius,
+                    mPosX + mFixedCenterX - mCenterX - mButtonRadius,
+                    mPosY + mFixedCenterY - mCenterY - mButtonRadius,
                     mPaintBitmapButton
             );
         }
         // Draw the button as simple circle
         else {
-            canvas.drawCircle(mPosX - mCenterX + mUICenterX, mPosY - mCenterY + mUICenterY, mButtonRadius, mPaintCircleButton);
+            canvas.drawCircle(
+                    mPosX + mFixedCenterX - mCenterX,
+                    mPosY + mFixedCenterY - mCenterY,
+                    mButtonRadius,
+                    mPaintCircleButton
+            );
         }
     }
 
@@ -477,7 +482,7 @@ public class JoystickView extends View
      * Set the button color for this JoystickView.
      * @param color the color of the button
      */
-    public void setButtonColor(@ColorInt int color){
+    public void setButtonColor(@ColorInt int color) {
         mPaintCircleButton.setColor(color);
         invalidate();
     }
@@ -487,7 +492,7 @@ public class JoystickView extends View
      * Set the border color for this JoystickView.
      * @param color the color of the border
      */
-    public void setBorderColor(@ColorInt int color){
+    public void setBorderColor(@ColorInt int color) {
         mPaintCircleBorder.setColor(color);
         invalidate();
     }
@@ -547,7 +552,7 @@ public class JoystickView extends View
      * Set the joystick center's behavior (fixed or auto-defined)
      * @param fixedCenter True for fixed center, False for auto-defined center based on touch down
      */
-    public void setFixedCenter(boolean fixedCenter){
+    public void setFixedCenter(boolean fixedCenter) {
         // if we set to "fixed" we make sure to re-init position related to the width of the joystick
         if (fixedCenter) {
             initPosition();
