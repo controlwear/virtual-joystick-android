@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -482,7 +481,7 @@ public class JoystickView extends View
      * Set the button color for this JoystickView.
      * @param color the color of the button
      */
-    public void setButtonColor(@ColorInt int color) {
+    public void setButtonColor(int color) {
         mPaintCircleButton.setColor(color);
         invalidate();
     }
@@ -492,7 +491,7 @@ public class JoystickView extends View
      * Set the border color for this JoystickView.
      * @param color the color of the border
      */
-    public void setBorderColor(@ColorInt int color) {
+    public void setBorderColor(int color) {
         mPaintCircleBorder.setColor(color);
         invalidate();
     }
@@ -503,7 +502,7 @@ public class JoystickView extends View
      * @param color the color of the background
      */
     @Override
-    public void setBackgroundColor(@ColorInt int color) {
+    public void setBackgroundColor(int color) {
         mPaintBackground.setColor(color);
         invalidate();
     }
