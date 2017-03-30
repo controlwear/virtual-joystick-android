@@ -3,9 +3,12 @@ package io.github.controlwear.virtual.joystick.android;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
@@ -105,6 +108,9 @@ public class JoystickView extends View
     private Paint mPaintCircleBorder;
     private Paint mPaintBackground;
 
+    private Paint mPaintBitmapButton;
+    private Bitmap mButtonBitmap;
+
     // COORDINATE
     private int mPosX = 0;
     private int mPosY = 0;
@@ -184,12 +190,14 @@ public class JoystickView extends View
         int borderColor;
         int backgroundColor;
         int borderWidth;
+        Drawable buttonDrawable;
         try {
             buttonColor = styledAttributes.getColor(R.styleable.JoystickView_JV_buttonColor, DEFAULT_COLOR);
             borderColor = styledAttributes.getColor(R.styleable.JoystickView_JV_borderColor, DEFAULT_COLOR);
             backgroundColor = styledAttributes.getColor(R.styleable.JoystickView_JV_backgroundColor, DEFAULT_BACKGROUND_COLOR);
             borderWidth = styledAttributes.getDimensionPixelSize(R.styleable.JoystickView_JV_borderWidth, DEFAULT_WIDTH_BORDER);
             mFixedCenter = styledAttributes.getBoolean(R.styleable.JoystickView_JV_fixedCenter, DEFAULT_FIXED_CENTER);
+            buttonDrawable = styledAttributes.getDrawable(R.styleable.JoystickView_JV_buttonImage);
         } finally {
             styledAttributes.recycle();
         }
@@ -200,6 +208,13 @@ public class JoystickView extends View
         mPaintCircleButton.setAntiAlias(true);
         mPaintCircleButton.setColor(buttonColor);
         mPaintCircleButton.setStyle(Paint.Style.FILL);
+
+        if (buttonDrawable != null) {
+            if (buttonDrawable instanceof BitmapDrawable) {
+                mButtonBitmap = ((BitmapDrawable) buttonDrawable).getBitmap();
+                mPaintBitmapButton = new Paint();
+            }
+        }
 
         mPaintCircleBorder = new Paint();
         mPaintCircleBorder.setAntiAlias(true);
@@ -244,8 +259,19 @@ public class JoystickView extends View
         // Draw the circle border
         canvas.drawCircle(mUICenterX, mUICenterY, mBorderRadius, mPaintCircleBorder);
 
-        // Draw the circle button
-        canvas.drawCircle(mPosX - mCenterX + mUICenterX, mPosY - mCenterY + mUICenterY, mButtonRadius, mPaintCircleButton);
+        // Draw the button from image
+        if (mButtonBitmap != null) {
+            canvas.drawBitmap(
+                    mButtonBitmap,
+                    mPosX - mCenterX + mUICenterX - mButtonRadius,
+                    mPosY - mCenterY + mUICenterY - mButtonRadius,
+                    mPaintBitmapButton
+            );
+        }
+        // Draw the button as simple circle
+        else {
+            canvas.drawCircle(mPosX - mCenterX + mUICenterX, mPosY - mCenterY + mUICenterY, mButtonRadius, mPaintCircleButton);
+        }
     }
 
 
@@ -268,6 +294,9 @@ public class JoystickView extends View
         int d = Math.min(w, h);
         mButtonRadius = (int) (d / 2 * RATIO_SIZE_BUTTON);
         mBorderRadius = (int) (d / 2 * RATIO_SIZE_BORDER);
+
+        if (mButtonBitmap != null)
+            mButtonBitmap = Bitmap.createScaledBitmap(mButtonBitmap, mButtonRadius * 2, mButtonRadius * 2, false);
     }
 
 
@@ -413,6 +442,30 @@ public class JoystickView extends View
     /*
     SETTERS
      */
+
+
+    /**
+     * Set an image to the button with a drawable
+     * @param d drawable to pick the image
+     */
+    public void setButtonDrawable(Drawable d) {
+        if (d != null) {
+            if (d instanceof BitmapDrawable) {
+                mButtonBitmap = ((BitmapDrawable) d).getBitmap();
+
+                if (mButtonRadius != 0) {
+                    mButtonBitmap = Bitmap.createScaledBitmap(
+                            mButtonBitmap,
+                            mButtonRadius * 2,
+                            mButtonRadius * 2,
+                            false);
+                }
+
+                if (mPaintBitmapButton != null)
+                    mPaintBitmapButton = new Paint();
+            }
+        }
+    }
 
 
     /**

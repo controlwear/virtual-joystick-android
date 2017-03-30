@@ -4,6 +4,8 @@
 
     <declare-styleable name="JoystickView">
 
+        <attr name="JV_buttonImage" format="reference" />
+
         <attr name="JV_buttonColor" format="color"/>
 
         <attr name="JV_borderColor" format="color"/>
