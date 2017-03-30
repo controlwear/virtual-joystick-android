@@ -68,9 +68,14 @@ public class JoystickView extends View
     private static final int MOVE_TOLERANCE = 10;
 
     /**
-     * Default color for button and border
+     * Default color for button
      */
-    private static final int DEFAULT_COLOR = Color.BLACK;
+    private static final int DEFAULT_COLOR_BUTTON = Color.BLACK;
+
+    /**
+     * Default color for border
+     */
+    private static final int DEFAULT_COLOR_BORDER = Color.TRANSPARENT;
 
     /**
      * Default background color
@@ -192,8 +197,8 @@ public class JoystickView extends View
         int borderWidth;
         Drawable buttonDrawable;
         try {
-            buttonColor = styledAttributes.getColor(R.styleable.JoystickView_JV_buttonColor, DEFAULT_COLOR);
-            borderColor = styledAttributes.getColor(R.styleable.JoystickView_JV_borderColor, DEFAULT_COLOR);
+            buttonColor = styledAttributes.getColor(R.styleable.JoystickView_JV_buttonColor, DEFAULT_COLOR_BUTTON);
+            borderColor = styledAttributes.getColor(R.styleable.JoystickView_JV_borderColor, DEFAULT_COLOR_BORDER);
             backgroundColor = styledAttributes.getColor(R.styleable.JoystickView_JV_backgroundColor, DEFAULT_BACKGROUND_COLOR);
             borderWidth = styledAttributes.getDimensionPixelSize(R.styleable.JoystickView_JV_borderWidth, DEFAULT_WIDTH_BORDER);
             mFixedCenter = styledAttributes.getBoolean(R.styleable.JoystickView_JV_fixedCenter, DEFAULT_FIXED_CENTER);
