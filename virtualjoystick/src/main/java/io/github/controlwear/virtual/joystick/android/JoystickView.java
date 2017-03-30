@@ -162,6 +162,8 @@ public class JoystickView extends View
     /**
      * Simple constructor to use when creating a JoystickView from code.
      * Call another constructor passing null to Attribute.
+     * @param context The Context the JoystickView is running in, through which it can
+     *        access the current theme, resources, etc.
      */
     public JoystickView(Context context) {
         this(context, null);
