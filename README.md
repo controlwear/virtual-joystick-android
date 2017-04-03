@@ -1,12 +1,12 @@
 # virtual-joystick-android
 
-**v1.2.0** _(New version - support custom images)_
+**v1.2.0** _(New version - [support custom images](#image))_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
 This library provides a very simple and **ready-to-use** custom view which emulates a joystick for Android.
 
-![Alt text](/misc/ss_mobile_landscape_joystick.png?raw=true "Double Joystick with custom size and colors")
+![Alt text](/misc/virtual-joystick-android.png?raw=true "Double Joystick with custom size and colors")
 
 ### Gist
 Here is a very simple snippets to use it. Just set the `onMoveListener` to retrieve its angle and strength.
@@ -67,7 +67,7 @@ If you want a more customized joystick, you can use `JV_buttonImage` and the reg
     custom:JV_buttonImage="@drawable/ball_pink"/>
 ```
 
-![Alt text](/misc/ss_mobile_landscape_joystick_with_image.png?raw=true "Left joystick with custom image")
+![Alt text](/misc/android-virtual-joystick-custom-image.png?raw=true "Left joystick with custom image")
 
 #### FixedCenter or Not?
 If you don’t set up this parameter, it will be FixedCenter by default, which is the regular behavior.
