@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.2.0** _(New version - support custom images)_
+**v1.3.0** _(New version - support custom images)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -39,7 +39,7 @@ joystick.setOnMoveListener(new JoystickView.OnMoveListener() { ... }, 17); // ar
 
 ### Attributes
 
-You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_borderColor`, `JV_backgroundColor`, `JV_borderWidth` and `JV_fixedCenter`
+You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_borderColor`, `JV_backgroundColor`, `JV_borderWidth`, `JV_fixedCenter` and `JV_enabled`
 
 If you specified `JV_buttonImage` you don't need `JV_buttonColor`
 
@@ -78,6 +78,12 @@ As every parameter you can set it up in xml (as above) or in Java:
 joystick.setFixedCenter(false); // set up auto-define center
 ```
 
+#### Enabled
+By default the joystick is enabled (set to True), but you can disable it either in xml or Java. Then, the button will stop moving and `onMove()` won’t be called anymore.
+```java
+joystick.setEnabled(false); // disabled the joystick
+```
+
 ### Wearable
 If you use this library in Wearable app, you will probably disable the Swipe-To-Dismiss Gesture and implement the Long Press to Dismiss Pattern, which could be a problem for a Joystick Pattern (because we usually let the user touch the joystick as long as she/he wants), in that case you can set another convenient listener: `OnMultipleLongPressListener` which will be invoked only with multiple pointers (at least two fingers) instead of one.
 ```java
@@ -93,7 +99,7 @@ Or better, if you just want a simple Joystick (and few other cool stuff) as a co
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.2.0'
+compile 'io.github.controlwear:virtualjoystick:1.3.0'
 ```
 
 ## Contributing
@@ -117,6 +123,6 @@ limitations under the License.
 
 ## Authors
 
-**virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [44screens](http://44screens.com/en-us) and [NSERC](http://www.nserc-crsng.gc.ca/index_eng.asp).
+**virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [Black Artick](http://blackartick.com/) and [NSERC](http://www.nserc-crsng.gc.ca/index_eng.asp).
 
-Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">@teancake</a> and <a href="https://github.com/Spettacolo83" class="user-mention">@Spettacolo83</a> for contributing.
+Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">@teancake</a>, <a href="https://github.com/Spettacolo83" class="user-mention">@Spettacolo83</a> and <a href="https://github.com/djjaysmith" class="user-mention">@djjaysmith</a> for contributing.

@@ -130,6 +130,13 @@ public class JoystickView extends View
     private boolean mFixedCenter;
 
 
+    /**
+     * Used to enabled/disabled the Joystick. When disabled (enabled to false) the joystick button
+     * can't move and onMove is not called.
+     */
+    private boolean mEnabled;
+
+
     // SIZE
     private int mButtonRadius;
     private int mBorderRadius;
@@ -204,6 +211,7 @@ public class JoystickView extends View
             borderWidth = styledAttributes.getDimensionPixelSize(R.styleable.JoystickView_JV_borderWidth, DEFAULT_WIDTH_BORDER);
             mFixedCenter = styledAttributes.getBoolean(R.styleable.JoystickView_JV_fixedCenter, DEFAULT_FIXED_CENTER);
             buttonDrawable = styledAttributes.getDrawable(R.styleable.JoystickView_JV_buttonImage);
+            mEnabled = styledAttributes.getBoolean(R.styleable.JoystickView_JV_enabled, true);
         } finally {
             styledAttributes.recycle();
         }
@@ -345,6 +353,12 @@ public class JoystickView extends View
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        // if disabled we don't move the
+        if (!mEnabled) {
+            return true;
+        }
+
+
         // to move the button according to the finger coordinate
         mPosX = (int) event.getX();
         mPosY = (int) event.getY();
@@ -447,6 +461,11 @@ public class JoystickView extends View
     public void resetButtonPosition() {
         mPosX = mCenterX;
         mPosY = mCenterY;
+    }
+
+
+    public boolean isEnabled() {
+        return mEnabled;
     }
 
 
@@ -560,6 +579,15 @@ public class JoystickView extends View
         }
         mFixedCenter = fixedCenter;
         invalidate();
+    }
+
+
+    /**
+     * Enable or disable the joystick
+     * @param enabled False mean the button won't move and onMove won't be called
+     */
+    public void setEnabled(boolean enabled) {
+        mEnabled = enabled;
     }
 
 
