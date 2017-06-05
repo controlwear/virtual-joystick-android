@@ -82,6 +82,7 @@ joystick.setFixedCenter(false); // set up auto-define center
 By default the joystick is enabled (set to True), but you can disable it either in xml or Java. Then, the button will stop moving and `onMove()` won’t be called anymore.
 ```java
 joystick.setEnabled(false); // disabled the joystick
+joystick.isEnabled(); // return enabled state
 ```
 
 ### Wearable
