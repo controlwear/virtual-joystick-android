@@ -97,6 +97,12 @@ joystick.setOnMultiLongPressListener(new JoystickView.OnMultipleLongPressListene
 ```
 Or better, if you just want a simple Joystick (and few other cool stuff) as a controller for your mobile app you can use the following related project ;)
 
+## Demo
+For those who want more than just a snippet, here is the demo :
+- [Basic two joysticks ](https://github.com/controlwear/virtual-joystick-demo) (similar to screenshot)
+
+If you want to add your project here, go ahead :)
+
 ## Download
 ### Gradle
 ```java
