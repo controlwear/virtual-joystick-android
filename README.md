@@ -78,6 +78,8 @@ As every parameter you can set it up in xml (as above) or in Java:
 joystick.setFixedCenter(false); // set up auto-define center
 ```
 
+UnfixedCenter (set to false) is particularly convenient when the user can’t (or doesn’t want to) see the screen (e.g. a drone's controller).
+
 #### Enabled
 By default the joystick is enabled (set to True), but you can disable it either in xml or Java. Then, the button will stop moving and `onMove()` won’t be called anymore.
 ```java
