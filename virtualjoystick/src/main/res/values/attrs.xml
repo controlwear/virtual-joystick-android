@@ -18,6 +18,10 @@
 
         <attr name="JV_enabled" format="boolean"/>
 
+        <attr name="JV_buttonSizeRatio" format="fraction"/>
+
+        <attr name="JV_backgroundSizeRatio" format="fraction"/>
+
     </declare-styleable>
 
 </resources>

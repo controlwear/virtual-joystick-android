@@ -87,16 +87,6 @@ public class JoystickView extends View
     private static final int DEFAULT_SIZE = 200;
 
     /**
-     * Ratio use to define the size of the button
-     */
-    private static final double RATIO_SIZE_BUTTON = 0.25;
-
-    /**
-     * Ratio use to define the size of border (as the distance from the center)
-     */
-    private static final double RATIO_SIZE_BORDER = 0.75;
-
-    /**
      * Default border's width
      */
     private static final int DEFAULT_WIDTH_BORDER = 3;
@@ -114,6 +104,20 @@ public class JoystickView extends View
 
     private Paint mPaintBitmapButton;
     private Bitmap mButtonBitmap;
+
+
+    /**
+     * Ratio use to define the size of the button
+     */
+    private float mButtonSizeRatio;
+
+
+    /**
+     * Ratio use to define the size of the background
+     *
+     */
+    private float mBackgroundSizeRatio;
+
 
     // COORDINATE
     private int mPosX = 0;
@@ -212,6 +216,8 @@ public class JoystickView extends View
             mFixedCenter = styledAttributes.getBoolean(R.styleable.JoystickView_JV_fixedCenter, DEFAULT_FIXED_CENTER);
             buttonDrawable = styledAttributes.getDrawable(R.styleable.JoystickView_JV_buttonImage);
             mEnabled = styledAttributes.getBoolean(R.styleable.JoystickView_JV_enabled, true);
+            mButtonSizeRatio = styledAttributes.getFraction(R.styleable.JoystickView_JV_buttonSizeRatio, 1, 1, 0.25f);
+            mBackgroundSizeRatio = styledAttributes.getFraction(R.styleable.JoystickView_JV_backgroundSizeRatio, 1, 1, 0.75f);
         } finally {
             styledAttributes.recycle();
         }
@@ -311,8 +317,8 @@ public class JoystickView extends View
 
         // radius based on smallest size : height OR width
         int d = Math.min(w, h);
-        mButtonRadius = (int) (d / 2 * RATIO_SIZE_BUTTON);
-        mBorderRadius = (int) (d / 2 * RATIO_SIZE_BORDER);
+        mButtonRadius = (int) (d / 2 * mButtonSizeRatio);
+        mBorderRadius = (int) (d / 2 * mBackgroundSizeRatio);
 
         if (mButtonBitmap != null)
             mButtonBitmap = Bitmap.createScaledBitmap(mButtonBitmap, mButtonRadius * 2, mButtonRadius * 2, false);
@@ -434,6 +440,11 @@ public class JoystickView extends View
     }
 
 
+    /*
+    GETTERS
+     */
+
+
     /**
      * Process the angle following the 360° counter-clock protractor rules.
      * @return the angle of the button
@@ -464,8 +475,32 @@ public class JoystickView extends View
     }
 
 
+    /**
+     * Return the state of the joystick. False when the button don't move.
+     * @return the state of the joystick
+     */
     public boolean isEnabled() {
         return mEnabled;
+    }
+
+
+    /**
+     * Return the size of the button (as a ratio of the total width/height)
+     * Default is 0.25 (25%).
+     * @return button size (value between 0.0 and 1.0)
+     */
+    public float getButtonSizeRatio() {
+        return mButtonSizeRatio;
+    }
+
+
+    /**
+     * Return the size of the background (as a ratio of the total width/height)
+     * Default is 0.75 (75%).
+     * @return background size (value between 0.0 and 1.0)
+     */
+    public float getmBackgroundSizeRatio() {
+        return mBackgroundSizeRatio;
     }
 
 
@@ -588,6 +623,31 @@ public class JoystickView extends View
      */
     public void setEnabled(boolean enabled) {
         mEnabled = enabled;
+    }
+
+
+    /**
+     * Set the joystick button size (as a fraction of the real width/height)
+     * By default it is 25% (0.25).
+     * @param newRatio between 0.0 and 1.0
+     */
+    public void setButtonSizeRatio(float newRatio) {
+        if (newRatio > 0.0f & newRatio <= 1.0f) {
+            mButtonSizeRatio = newRatio;
+        }
+    }
+
+
+    /**
+     * Set the joystick button size (as a fraction of the real width/height)
+     * By default it is 75% (0.75).
+     * Not working if the background is an image.
+     * @param newRatio between 0.0 and 1.0
+     */
+    public void setBackgroundSizeRatio(float newRatio) {
+        if (newRatio > 0.0f & newRatio <= 1.0f) {
+            mBackgroundSizeRatio = newRatio;
+        }
     }
 
 
