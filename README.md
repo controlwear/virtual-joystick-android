@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.3.0** _(New version - [support custom images](#image))_
+**v1.4.0** _(New version - [support custom images](#image), button & background size)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -39,7 +39,7 @@ joystick.setOnMoveListener(new JoystickView.OnMoveListener() { ... }, 17); // ar
 
 ### Attributes
 
-You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_borderColor`, `JV_backgroundColor`, `JV_borderWidth`, `JV_fixedCenter` and `JV_enabled`
+You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_buttonSizeRatio`, `JV_borderColor`, `JV_borderWidth`, `JV_backgroundColor`, `JV_backgroundSizeRatio`, `JV_fixedCenter` and `JV_enabled`
 
 If you specified `JV_buttonImage` you don't need `JV_buttonColor`
 
@@ -50,6 +50,7 @@ Here is an example for your layout resources:
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     custom:JV_buttonColor="#FF6E40"
+    custom:JV_buttonSizeRatio="0.15"
     custom:JV_borderColor="#00796B"
     custom:JV_backgroundColor="#009688"
     custom:JV_borderWidth="4dp"
@@ -68,6 +69,22 @@ If you want a more customized joystick, you can use `JV_buttonImage` and the reg
 ```
 
 ![Alt text](/misc/android-virtual-joystick-custom-image.png?raw=true "Left joystick with custom image")
+
+#### SizeRatio
+We can change the default size of the button and background.
+The size is calculated as a percentage of the total width/height.
+
+By default, the button is 25% (0.25) and the background 75% (0.25), as the first screenshot above.
+
+If the total (background + button) is above 1.0, the button will probably be a bit cut when on the border.
+
+_The background size is not working for a custom picture._
+
+```java
+joystick.setBackgroundSizeRatio(0.5);
+joystick.setButtonSizeRatio(0.1);
+```
+
 
 #### FixedCenter or Not?
 If you don’t set up this parameter, it will be FixedCenter by default, which is the regular behavior.
@@ -108,7 +125,7 @@ If you want to add your project here, go ahead :)
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.3.0'
+compile 'io.github.controlwear:virtualjoystick:1.4.0'
 ```
 
 ## Contributing
