@@ -97,6 +97,12 @@ public class JoystickView extends View
     private static final boolean DEFAULT_FIXED_CENTER = true;
 
 
+    /**
+     * Default behavior to auto re-center button (automatically recenter the button)
+     */
+    private static final boolean DEFAULT_AUTO_RECENTER_BUTTON = true;
+
+
     // DRAWING
     private Paint mPaintCircleButton;
     private Paint mPaintCircleBorder;
@@ -132,6 +138,13 @@ public class JoystickView extends View
      * Used to adapt behavior whether it is auto-defined center (false) or fixed center (true)
      */
     private boolean mFixedCenter;
+
+
+    /**
+     * Used to adapt behavior whether the button is automatically re-centered (true)
+     * when released or not (false)
+     */
+    private boolean mAutoReCenterButton;
 
 
     /**
@@ -214,6 +227,7 @@ public class JoystickView extends View
             backgroundColor = styledAttributes.getColor(R.styleable.JoystickView_JV_backgroundColor, DEFAULT_BACKGROUND_COLOR);
             borderWidth = styledAttributes.getDimensionPixelSize(R.styleable.JoystickView_JV_borderWidth, DEFAULT_WIDTH_BORDER);
             mFixedCenter = styledAttributes.getBoolean(R.styleable.JoystickView_JV_fixedCenter, DEFAULT_FIXED_CENTER);
+            mAutoReCenterButton = styledAttributes.getBoolean(R.styleable.JoystickView_JV_autoReCenterButton, DEFAULT_AUTO_RECENTER_BUTTON);
             buttonDrawable = styledAttributes.getDrawable(R.styleable.JoystickView_JV_buttonImage);
             mEnabled = styledAttributes.getBoolean(R.styleable.JoystickView_JV_enabled, true);
             mButtonSizeRatio = styledAttributes.getFraction(R.styleable.JoystickView_JV_buttonSizeRatio, 1, 1, 0.25f);
@@ -370,7 +384,9 @@ public class JoystickView extends View
         mPosY = (int) event.getY();
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            resetButtonPosition();
+            // re-center the button or not (depending on settings)
+            if (mAutoReCenterButton)
+                resetButtonPosition();
 
             mThread.interrupt();
 
@@ -501,6 +517,15 @@ public class JoystickView extends View
      */
     public float getmBackgroundSizeRatio() {
         return mBackgroundSizeRatio;
+    }
+
+
+    /**
+     * Return the current behavior of the auto re-center button
+     * @return True if automatically re-centered or False if not
+     */
+    public boolean isAutoReCenterButton() {
+        return mAutoReCenterButton;
     }
 
 
@@ -648,6 +673,15 @@ public class JoystickView extends View
         if (newRatio > 0.0f & newRatio <= 1.0f) {
             mBackgroundSizeRatio = newRatio;
         }
+    }
+
+
+    /**
+     * Set the current behavior of the auto re-center button
+     * @param b True if automatically re-centered or False if not
+     */
+    public void setAutoReCenterButton(boolean b) {
+        mAutoReCenterButton = b;
     }
 
 
