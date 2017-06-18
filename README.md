@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.4.0** _(New version - [support custom images](#image), button & background size)_
+**v1.5.0** _(New version - [support custom images](#image), button & background size)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -39,7 +39,7 @@ joystick.setOnMoveListener(new JoystickView.OnMoveListener() { ... }, 17); // ar
 
 ### Attributes
 
-You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_buttonSizeRatio`, `JV_borderColor`, `JV_borderWidth`, `JV_backgroundColor`, `JV_backgroundSizeRatio`, `JV_fixedCenter` and `JV_enabled`
+You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_buttonSizeRatio`, `JV_borderColor`, `JV_borderWidth`, `JV_backgroundColor`, `JV_backgroundSizeRatio`, `JV_fixedCenter`, `JV_autoReCenterButton` and `JV_enabled`
 
 If you specified `JV_buttonImage` you don't need `JV_buttonColor`
 
@@ -86,7 +86,7 @@ joystick.setButtonSizeRatio(0.1);
 ```
 
 
-#### FixedCenter or Not?
+#### FixedCenter or Not? (and auto re-center)
 If you don’t set up this parameter, it will be FixedCenter by default, which is the regular behavior.
 
 However, sometimes, it is convenient to have an auto-defined center which will be defined each time you touch down the screen with your finger (center position will be limited inside the JoystickView’s width/height).
@@ -96,6 +96,12 @@ joystick.setFixedCenter(false); // set up auto-define center
 ```
 
 UnfixedCenter (set to false) is particularly convenient when the user can’t (or doesn’t want to) see the screen (e.g. a drone's controller).
+
+We can also remove the automatically re-centered button, just set it to false.
+```java
+joystick.setAutoReCenterButton(false);
+```
+_(The behavior is a bit weird if we set remove both the FixedCenter and the AutoReCenter.)_
 
 #### Enabled
 By default the joystick is enabled (set to True), but you can disable it either in xml or Java. Then, the button will stop moving and `onMove()` won’t be called anymore.
@@ -125,7 +131,7 @@ If you want to add your project here, go ahead :)
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.4.0'
+compile 'io.github.controlwear:virtualjoystick:1.5.0'
 ```
 
 ## Contributing
@@ -151,4 +157,4 @@ limitations under the License.
 
 **virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [Black Artick](http://blackartick.com/) and [NSERC](http://www.nserc-crsng.gc.ca/index_eng.asp).
 
-Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">@teancake</a>, <a href="https://github.com/Spettacolo83" class="user-mention">@Spettacolo83</a> and <a href="https://github.com/djjaysmith" class="user-mention">@djjaysmith</a> for contributing.
+Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">@teancake</a>, <a href="https://github.com/Spettacolo83" class="user-mention">@Spettacolo83</a>, <a href="https://github.com/djjaysmith" class="user-mention">@djjaysmith</a> and <a href="https://github.com/jaybkim1" class="user-mention">@jaybkim1</a> for contributing.
