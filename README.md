@@ -50,7 +50,7 @@ Here is an example for your layout resources:
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     custom:JV_buttonColor="#FF6E40"
-    custom:JV_buttonSizeRatio="0.15"
+    custom:JV_buttonSizeRatio="15%"
     custom:JV_borderColor="#00796B"
     custom:JV_backgroundColor="#009688"
     custom:JV_borderWidth="4dp"
@@ -78,13 +78,19 @@ By default, the button is 25% (0.25) and the background 75% (0.25), as the first
 
 If the total (background + button) is above 1.0, the button will probably be a bit cut when on the border.
 
-_The background size is not working for a custom picture._
+```xml
+<...
+    custom:JV_buttonSizeRatio="50%"
+    custom:JV_backgroundSizeRatio="10%"/>
+
+```
 
 ```java
 joystick.setBackgroundSizeRatio(0.5);
 joystick.setButtonSizeRatio(0.1);
 ```
 
+_The background size is not working for a custom picture._
 
 #### FixedCenter or Not? (and auto re-center)
 If you don’t set up this parameter, it will be FixedCenter by default, which is the regular behavior.
@@ -157,4 +163,4 @@ limitations under the License.
 
 **virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [Black Artick](http://blackartick.com/) and [NSERC](http://www.nserc-crsng.gc.ca/index_eng.asp).
 
-Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">@teancake</a>, <a href="https://github.com/Spettacolo83" class="user-mention">@Spettacolo83</a>, <a href="https://github.com/djjaysmith" class="user-mention">@djjaysmith</a> and <a href="https://github.com/jaybkim1" class="user-mention">@jaybkim1</a> for contributing.
+Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">@teancake</a>, <a href="https://github.com/Spettacolo83" class="user-mention">@Spettacolo83</a>, <a href="https://github.com/djjaysmith" class="user-mention">@djjaysmith</a>, <a href="https://github.com/jaybkim1" class="user-mention">@jaybkim1</a> and <a href="https://github.com/sikrinick" class="user-mention">@sikrinick</a> for contributing.
