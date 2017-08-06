@@ -103,6 +103,12 @@ public class JoystickView extends View
     private static final boolean DEFAULT_AUTO_RECENTER_BUTTON = true;
 
 
+    /**
+     * Default behavior to button stickToBorder (button stay on the border)
+     */
+    private static final boolean DEFAULT_BUTTON_STICK_TO_BORDER = false;
+
+
     // DRAWING
     private Paint mPaintCircleButton;
     private Paint mPaintCircleBorder;
@@ -145,6 +151,13 @@ public class JoystickView extends View
      * when released or not (false)
      */
     private boolean mAutoReCenterButton;
+
+
+    /**
+     * Used to adapt behavior whether the button is stick to border (true) or
+     * could be anywhere (when false - similar to regular behavior)
+     */
+    private boolean mButtonStickToBorder;
 
 
     /**
@@ -228,6 +241,7 @@ public class JoystickView extends View
             borderWidth = styledAttributes.getDimensionPixelSize(R.styleable.JoystickView_JV_borderWidth, DEFAULT_WIDTH_BORDER);
             mFixedCenter = styledAttributes.getBoolean(R.styleable.JoystickView_JV_fixedCenter, DEFAULT_FIXED_CENTER);
             mAutoReCenterButton = styledAttributes.getBoolean(R.styleable.JoystickView_JV_autoReCenterButton, DEFAULT_AUTO_RECENTER_BUTTON);
+            mButtonStickToBorder = styledAttributes.getBoolean(R.styleable.JoystickView_JV_buttonStickToBorder, DEFAULT_BUTTON_STICK_TO_BORDER);
             buttonDrawable = styledAttributes.getDrawable(R.styleable.JoystickView_JV_buttonImage);
             mEnabled = styledAttributes.getBoolean(R.styleable.JoystickView_JV_enabled, true);
             mButtonSizeRatio = styledAttributes.getFraction(R.styleable.JoystickView_JV_buttonSizeRatio, 1, 1, 0.25f);
@@ -444,7 +458,9 @@ public class JoystickView extends View
         double abs = Math.sqrt((mPosX - mCenterX) * (mPosX - mCenterX)
                 + (mPosY - mCenterY) * (mPosY - mCenterY));
 
-        if (abs > mBorderRadius) {
+        // (abs > mBorderRadius) means button is too far therefore we limit to border
+        // (buttonStickBorder && abs != 0) means wherever is the button we stick it to the border except when abs == 0
+        if (abs > mBorderRadius || (mButtonStickToBorder && abs != 0)) {
             mPosX = (int) ((mPosX - mCenterX) * mBorderRadius / abs + mCenterX);
             mPosY = (int) ((mPosY - mCenterY) * mBorderRadius / abs + mCenterY);
         }
@@ -526,6 +542,15 @@ public class JoystickView extends View
      */
     public boolean isAutoReCenterButton() {
         return mAutoReCenterButton;
+    }
+
+
+    /**
+     * Return the current behavior of the button stick to border
+     * @return
+     */
+    public boolean isButtonStickToBorder() {
+        return mButtonStickToBorder;
     }
 
 
@@ -682,6 +707,15 @@ public class JoystickView extends View
      */
     public void setAutoReCenterButton(boolean b) {
         mAutoReCenterButton = b;
+    }
+
+
+    /**
+     * Set the current behavior of the button stick to border
+     * @param b True if the button stick to the border or False (default) if not
+     */
+    public void setButtonStickToBorder(boolean b) {
+        mButtonStickToBorder = b;
     }
 
 
