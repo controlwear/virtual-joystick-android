@@ -547,7 +547,7 @@ public class JoystickView extends View
 
     /**
      * Return the current behavior of the button stick to border
-     * @return
+     * @return True if the button stick to the border otherwise False
      */
     public boolean isButtonStickToBorder() {
         return mButtonStickToBorder;

@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.5.0** _(New version - [support custom images](#image), button & background size)_
+**v1.6.0** _(New version - [support custom images](#image), button & background size)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -39,7 +39,7 @@ joystick.setOnMoveListener(new JoystickView.OnMoveListener() { ... }, 17); // ar
 
 ### Attributes
 
-You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_buttonSizeRatio`, `JV_borderColor`, `JV_borderWidth`, `JV_backgroundColor`, `JV_backgroundSizeRatio`, `JV_fixedCenter`, `JV_autoReCenterButton` and `JV_enabled`
+You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_buttonSizeRatio`, `JV_borderColor`, `JV_borderWidth`, `JV_backgroundColor`, `JV_backgroundSizeRatio`, `JV_fixedCenter`, `JV_autoReCenterButton`, `JV_buttonStickToBorder` and `JV_enabled`
 
 If you specified `JV_buttonImage` you don't need `JV_buttonColor`
 
@@ -137,7 +137,7 @@ If you want to add your project here, go ahead :)
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.5.0'
+compile 'io.github.controlwear:virtualjoystick:1.6.0'
 ```
 
 ## Contributing
