@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 11
-        versionName "1.7.0"
+        versionCode 12
+        versionName "1.7.1"
     }
     buildTypes {
         release {
@@ -37,7 +37,7 @@ ext {
     artifact = 'virtualjoystick'
 
     libraryDescription = 'This library provides a very simple and ready-to-use custom view which emulates a joystick for Android.'
-    libraryVersion = '1.7.0'
+    libraryVersion = '1.7.1'
 
     developerId = 'makowildcat'
     developerName = 'Damien Brun'

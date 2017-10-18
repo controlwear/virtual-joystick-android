@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.7.0** _(New version - [support custom images](#image), button & background size, limited direction)_
+**v1.7.1** _(New version - [support custom images](#image), button & background size, limited direction)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -154,7 +154,7 @@ If you want to add your project here, go ahead :)
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.7.0'
+compile 'io.github.controlwear:virtualjoystick:1.7.1'
 ```
 
 ## Contributing

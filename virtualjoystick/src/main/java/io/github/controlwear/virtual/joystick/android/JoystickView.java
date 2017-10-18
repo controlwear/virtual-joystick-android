@@ -755,7 +755,7 @@ public class JoystickView extends View
      *                  - any positive value (such as 1) for vertical axe
      *                  - zero (0) for the full direction (both axes)
      */
-    public void getDirection(int direction) {
+    public void setButtonDirection(int direction) {
         mButtonDirection = direction;
     }
 
