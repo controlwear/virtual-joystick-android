@@ -191,6 +191,21 @@ public class JoystickView extends View
     private int mMoveTolerance;
 
 
+    /**
+     * Default value.
+     * Both direction correspond to horizontal and vertical movement
+     */
+    public static int BUTTON_DIRECTION_BOTH = 0;
+
+    /**
+     * The allowed direction of the button is define by the value of this parameter:
+     * - a negative value for horizontal axe
+     * - a positive value for vertical axe
+     * - zero for both axes
+     */
+    private int mButtonDirection = 0;
+
+
     /*
     CONSTRUCTORS
      */
@@ -246,6 +261,7 @@ public class JoystickView extends View
             mEnabled = styledAttributes.getBoolean(R.styleable.JoystickView_JV_enabled, true);
             mButtonSizeRatio = styledAttributes.getFraction(R.styleable.JoystickView_JV_buttonSizeRatio, 1, 1, 0.25f);
             mBackgroundSizeRatio = styledAttributes.getFraction(R.styleable.JoystickView_JV_backgroundSizeRatio, 1, 1, 0.75f);
+            mButtonDirection = styledAttributes.getInteger(R.styleable.JoystickView_JV_buttonDirection, BUTTON_DIRECTION_BOTH);
         } finally {
             styledAttributes.recycle();
         }
@@ -394,8 +410,9 @@ public class JoystickView extends View
 
 
         // to move the button according to the finger coordinate
-        mPosX = (int) event.getX();
-        mPosY = (int) event.getY();
+        // (or limited to one axe according to direction option
+        mPosY = mButtonDirection < 0 ? mCenterY : (int) event.getY(); // direction negative is horizontal axe
+        mPosX = mButtonDirection > 0 ? mCenterX : (int) event.getX(); // direction positive is vertical axe
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
             // re-center the button or not (depending on settings)
@@ -504,6 +521,18 @@ public class JoystickView extends View
     public void resetButtonPosition() {
         mPosX = mCenterX;
         mPosY = mCenterY;
+    }
+
+
+    /**
+     * Return the current direction allowed for the button to move
+     * @return Actually return an integer corresponding to the direction:
+     * - A negative value is horizontal axe,
+     * - A positive value is vertical axe,
+     * - Zero means both axes
+     */
+    public int getButtonDirection() {
+        return mButtonDirection;
     }
 
 
@@ -716,6 +745,18 @@ public class JoystickView extends View
      */
     public void setButtonStickToBorder(boolean b) {
         mButtonStickToBorder = b;
+    }
+
+
+    /**
+     * Set the current authorized direction for the button to move
+     * @param direction the value will define the authorized direction:
+     *                  - any negative value (such as -1) for horizontal axe
+     *                  - any positive value (such as 1) for vertical axe
+     *                  - zero (0) for the full direction (both axes)
+     */
+    public void getDirection(int direction) {
+        mButtonDirection = direction;
     }
 
 

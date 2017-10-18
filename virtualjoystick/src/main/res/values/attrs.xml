@@ -26,6 +26,13 @@
 
         <attr name="JV_backgroundSizeRatio" format="fraction"/>
 
+        <attr name="JV_buttonDirection">
+            <flag name="horizontal" value="-1"/>
+            <flag name="both" value="0"/>
+            <flag name="vertical" value="1"/>
+
+        </attr>
+
     </declare-styleable>
 
 </resources>

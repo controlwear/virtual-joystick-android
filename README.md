@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.6.0** _(New version - [support custom images](#image), button & background size)_
+**v1.7.0** _(New version - [support custom images](#image), button & background size, limited direction)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -39,7 +39,7 @@ joystick.setOnMoveListener(new JoystickView.OnMoveListener() { ... }, 17); // ar
 
 ### Attributes
 
-You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_buttonSizeRatio`, `JV_borderColor`, `JV_borderWidth`, `JV_backgroundColor`, `JV_backgroundSizeRatio`, `JV_fixedCenter`, `JV_autoReCenterButton`, `JV_buttonStickToBorder` and `JV_enabled`
+You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_buttonSizeRatio`, `JV_borderColor`, `JV_borderWidth`, `JV_backgroundColor`, `JV_backgroundSizeRatio`, `JV_fixedCenter`, `JV_autoReCenterButton`, `JV_buttonStickToBorder`, `JV_enabled` and `JV_buttonDirection`
 
 If you specified `JV_buttonImage` you don't need `JV_buttonColor`
 
@@ -116,6 +116,23 @@ joystick.setEnabled(false); // disabled the joystick
 joystick.isEnabled(); // return enabled state
 ```
 
+#### ButtonDirection
+By default the button can move in both direction X,Y (regular behavior), but we can limit the movement through one axe horizontal or vertical.
+```xml
+<...
+    custom:JV_buttonDirection="horizontal"/>
+```
+In the layout file (xml), this option can be set to `horizontal`, `vertical` or `both`.
+
+We can also set this option in the Java file by setting an integer value:
+- any negative value (e.g. -1) for the horizontal axe
+- any positive value (e.g. 1) for the vertical axe
+- zero (0) for both (which is the default option)
+
+```java
+joystick.setButtonDirection(1); // vertical
+```
+
 ### Wearable
 If you use this library in Wearable app, you will probably disable the Swipe-To-Dismiss Gesture and implement the Long Press to Dismiss Pattern, which could be a problem for a Joystick Pattern (because we usually let the user touch the joystick as long as she/he wants), in that case you can set another convenient listener: `OnMultipleLongPressListener` which will be invoked only with multiple pointers (at least two fingers) instead of one.
 ```java
@@ -137,7 +154,7 @@ If you want to add your project here, go ahead :)
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.6.0'
+compile 'io.github.controlwear:virtualjoystick:1.7.0'
 ```
 
 ## Contributing
@@ -163,4 +180,4 @@ limitations under the License.
 
 **virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [Black Artick](http://blackartick.com/) and [NSERC](http://www.nserc-crsng.gc.ca/index_eng.asp).
 
-Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">@teancake</a>, <a href="https://github.com/Spettacolo83" class="user-mention">@Spettacolo83</a>, <a href="https://github.com/djjaysmith" class="user-mention">@djjaysmith</a>, <a href="https://github.com/jaybkim1" class="user-mention">@jaybkim1</a> and <a href="https://github.com/sikrinick" class="user-mention">@sikrinick</a> for contributing.
+Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">@teancake</a>, <a href="https://github.com/Spettacolo83" class="user-mention">@Spettacolo83</a>, <a href="https://github.com/djjaysmith" class="user-mention">@djjaysmith</a>, <a href="https://github.com/jaybkim1" class="user-mention">@jaybkim1</a>, <a href="https://github.com/sikrinick" class="user-mention">@sikrinick</a> and <a href="https://github.com/AlexandrDavydov" class="user-mention">@AlexandrDavydov</a> for contributing.
