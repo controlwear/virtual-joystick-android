@@ -365,7 +365,7 @@ public class JoystickView extends View
         mBorderRadius = (int) (d / 2 * mBackgroundSizeRatio);
 
         if (mButtonBitmap != null)
-            mButtonBitmap = Bitmap.createScaledBitmap(mButtonBitmap, mButtonRadius * 2, mButtonRadius * 2, false);
+            mButtonBitmap = Bitmap.createScaledBitmap(mButtonBitmap, mButtonRadius * 2, mButtonRadius * 2, true);
     }
 
 
@@ -602,7 +602,7 @@ public class JoystickView extends View
                             mButtonBitmap,
                             mButtonRadius * 2,
                             mButtonRadius * 2,
-                            false);
+                            true);
                 }
 
                 if (mPaintBitmapButton != null)
