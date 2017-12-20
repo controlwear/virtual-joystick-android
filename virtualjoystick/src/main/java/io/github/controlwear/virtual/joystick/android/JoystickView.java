@@ -415,14 +415,21 @@ public class JoystickView extends View
         mPosX = mButtonDirection > 0 ? mCenterX : (int) event.getX(); // direction positive is vertical axe
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            // re-center the button or not (depending on settings)
-            if (mAutoReCenterButton)
-                resetButtonPosition();
 
+            // stop listener because the finger left the touch screen
             mThread.interrupt();
 
-            if (mCallback != null)
-                mCallback.onMove(getAngle(), getStrength());
+            // re-center the button or not (depending on settings)
+            if (mAutoReCenterButton) {
+                resetButtonPosition();
+
+                // update now the last strength and angle which should be zero after resetButton
+                if (mCallback != null)
+                    mCallback.onMove(getAngle(), getStrength());
+            }
+
+            // if mAutoReCenterButton is false we will send the last strength and angle a bit
+            // later only after processing new position X and Y otherwise it could be above the border limit
         }
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -481,6 +488,13 @@ public class JoystickView extends View
             mPosX = (int) ((mPosX - mCenterX) * mBorderRadius / abs + mCenterX);
             mPosY = (int) ((mPosY - mCenterY) * mBorderRadius / abs + mCenterY);
         }
+
+        if (!mAutoReCenterButton) {
+            // Now update the last strength and angle if not reset to center
+            if (mCallback != null)
+                mCallback.onMove(getAngle(), getStrength());
+        }
+
 
         // to force a new draw
         invalidate();
