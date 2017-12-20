@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.7.2** _(New version - [support custom images](#image), button & background size, limited direction)_
+**v1.7.3** _(New version - [support custom images](#image), button & background size, limited direction)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -154,7 +154,7 @@ If you want to add your project here, go ahead :)
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.7.2'
+compile 'io.github.controlwear:virtualjoystick:1.7.3'
 ```
 
 ## Contributing
@@ -180,4 +180,4 @@ limitations under the License.
 
 **virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [Black Artick](http://blackartick.com/) and [NSERC](http://www.nserc-crsng.gc.ca/index_eng.asp).
 
-Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">@Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">@teancake</a>, <a href="https://github.com/Spettacolo83" class="user-mention">@Spettacolo83</a>, <a href="https://github.com/djjaysmith" class="user-mention">@djjaysmith</a>, <a href="https://github.com/jaybkim1" class="user-mention">@jaybkim1</a>, <a href="https://github.com/sikrinick" class="user-mention">@sikrinick</a>, <a href="https://github.com/AlexandrDavydov" class="user-mention">@AlexandrDavydov</a>and <a href="https://github.com/indrek-koue" class="user-mention">@indrek-koue</a> for contributing.
+Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">teancake</a>, <a href="https://github.com/Spettacolo83" class="user-mention">Spettacolo83</a>, <a href="https://github.com/djjaysmith" class="user-mention">djjaysmith</a>, <a href="https://github.com/jaybkim1" class="user-mention">jaybkim1</a>, <a href="https://github.com/sikrinick" class="user-mention">sikrinick</a>, <a href="https://github.com/AlexandrDavydov" class="user-mention">AlexandrDavydov</a>, <a href="https://github.com/indrek-koue" class="user-mention">indrek-koue</a> and <a href="https://github.com/QitmentX7" class="user-mention">QitmentX7</a> for contributing.
