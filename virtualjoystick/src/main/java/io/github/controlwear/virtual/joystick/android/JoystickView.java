@@ -597,6 +597,25 @@ public class JoystickView extends View
     }
 
 
+    /**
+     * Return the relative X coordinate of button center related
+     * to top-left virtual corner of the border
+     * @return coordinate of X (normalized between 0 and 100)
+     */
+    public int getNormalizedX() {
+        return Math.round((mPosX-mButtonRadius)*100.0f/(getWidth()-mButtonRadius*2));
+    }
+
+
+    /**
+     * Return the relative Y coordinate of the button center related
+     * to top-left virtual corner of the border
+     * @return coordinate of Y (normalized between 0 and 100)
+     */
+    public int getNormalizedY() {
+        return Math.round((mPosY-mButtonRadius)*100.0f/(getHeight()-mButtonRadius*2));
+    }
+
     /*
     SETTERS
      */
