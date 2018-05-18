@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 27
-        versionCode 15
-        versionName "1.8.0"
+        versionCode 16
+        versionName "1.9.0"
     }
     buildTypes {
         release {
@@ -37,7 +37,7 @@ ext {
     artifact = 'virtualjoystick'
 
     libraryDescription = 'This library provides a very simple and ready-to-use custom view which emulates a joystick for Android.'
-    libraryVersion = '1.8.0'
+    libraryVersion = '1.9.0'
 
     developerId = 'makowildcat'
     developerName = 'Damien Brun'
