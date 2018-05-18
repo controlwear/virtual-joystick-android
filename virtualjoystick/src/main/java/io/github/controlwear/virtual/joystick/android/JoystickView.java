@@ -173,6 +173,12 @@ public class JoystickView extends View
 
 
     /**
+     * Based on mBorderRadius but a bit smaller (minus half the stroke size of the border)
+     */
+    private float mBackgroundRadius;
+
+
+    /**
      * Listener used to dispatch OnMove event
      */
     private OnMoveListener mCallback;
@@ -318,7 +324,7 @@ public class JoystickView extends View
     @Override
     protected void onDraw(Canvas canvas) {
         // Draw the background
-        canvas.drawCircle(mFixedCenterX, mFixedCenterY, mBorderRadius, mPaintBackground);
+        canvas.drawCircle(mFixedCenterX, mFixedCenterY, mBackgroundRadius, mPaintBackground);
 
         // Draw the circle border
         canvas.drawCircle(mFixedCenterX, mFixedCenterY, mBorderRadius, mPaintCircleBorder);
@@ -363,6 +369,7 @@ public class JoystickView extends View
         int d = Math.min(w, h);
         mButtonRadius = (int) (d / 2 * mButtonSizeRatio);
         mBorderRadius = (int) (d / 2 * mBackgroundSizeRatio);
+        mBackgroundRadius = mBorderRadius - (mPaintCircleBorder.getStrokeWidth() / 2);
 
         if (mButtonBitmap != null)
             mButtonBitmap = Bitmap.createScaledBitmap(mButtonBitmap, mButtonRadius * 2, mButtonRadius * 2, true);
@@ -682,6 +689,7 @@ public class JoystickView extends View
      */
     public void setBorderWidth(int width) {
         mPaintCircleBorder.setStrokeWidth(width);
+        mBackgroundRadius = mBorderRadius - (width / 2.0f);
         invalidate();
     }
 
