@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.9.0** _(New version - [support custom images](#image), button & background size, limited direction, normalized coordinate)_
+**v1.9.2** _(New version - [support custom images](#image), button & background size, limited direction, normalized coordinate)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -157,7 +157,7 @@ Minimum API level is 16 (Android 4.1.x - Jelly Bean) which cover 99.3% of the An
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.9.0'
+compile 'io.github.controlwear:virtualjoystick:1.9.2'
 ```
 
 ## Contributing
