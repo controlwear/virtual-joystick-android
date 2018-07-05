@@ -212,6 +212,16 @@ public class JoystickView extends View
     private int mButtonDirection = 0;
 
 
+    public enum AxisToCenter {
+        BOTH, X, Y
+    }
+
+    /**
+     * axis to be centered
+     */
+    private AxisToCenter axisToCenter = AxisToCenter.BOTH;
+
+
     /*
     CONSTRUCTORS
      */
@@ -540,8 +550,18 @@ public class JoystickView extends View
      * Reset the button position to the center.
      */
     public void resetButtonPosition() {
-        mPosX = mCenterX;
-        mPosY = mCenterY;
+        switch (axisToCenter) {
+            case BOTH:
+                mPosX = mCenterX;
+                mPosY = mCenterY;
+                break;
+            case X:
+                mPosX = mCenterX;
+                break;
+            case Y:
+                mPosY = mCenterY;
+                break;
+        }
     }
 
 
@@ -800,6 +820,21 @@ public class JoystickView extends View
         mButtonDirection = direction;
     }
 
+    /**
+     * get axis to be centered
+     * @return
+     */
+    public AxisToCenter getAxisToCenter() {
+        return axisToCenter;
+    }
+
+    /**
+     * set axis to be centered
+     * @param axisToCenter
+     */
+    public void setAxisToCenter(AxisToCenter axisToCenter) {
+        this.axisToCenter = axisToCenter;
+    }
 
     /*
     IMPLEMENTS
