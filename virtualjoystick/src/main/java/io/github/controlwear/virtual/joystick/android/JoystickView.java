@@ -77,6 +77,11 @@ public class JoystickView extends View
     private static final int DEFAULT_COLOR_BORDER = Color.TRANSPARENT;
 
     /**
+     * Default alpha for border
+     */
+    private static final int DEFAULT_ALPHA_BORDER = 255;
+
+    /**
      * Default background color
      */
     private static final int DEFAULT_BACKGROUND_COLOR = Color.TRANSPARENT;
@@ -173,6 +178,12 @@ public class JoystickView extends View
 
 
     /**
+     * Alpha of the border (to use when changing color dynamically)
+     */
+    private int mBorderAlpha;
+
+
+    /**
      * Based on mBorderRadius but a bit smaller (minus half the stroke size of the border)
      */
     private float mBackgroundRadius;
@@ -258,6 +269,7 @@ public class JoystickView extends View
         try {
             buttonColor = styledAttributes.getColor(R.styleable.JoystickView_JV_buttonColor, DEFAULT_COLOR_BUTTON);
             borderColor = styledAttributes.getColor(R.styleable.JoystickView_JV_borderColor, DEFAULT_COLOR_BORDER);
+            mBorderAlpha = styledAttributes.getInt(R.styleable.JoystickView_JV_borderAlpha, DEFAULT_ALPHA_BORDER);
             backgroundColor = styledAttributes.getColor(R.styleable.JoystickView_JV_backgroundColor, DEFAULT_BACKGROUND_COLOR);
             borderWidth = styledAttributes.getDimensionPixelSize(R.styleable.JoystickView_JV_borderWidth, DEFAULT_WIDTH_BORDER);
             mFixedCenter = styledAttributes.getBoolean(R.styleable.JoystickView_JV_fixedCenter, DEFAULT_FIXED_CENTER);
@@ -291,6 +303,10 @@ public class JoystickView extends View
         mPaintCircleBorder.setColor(borderColor);
         mPaintCircleBorder.setStyle(Paint.Style.STROKE);
         mPaintCircleBorder.setStrokeWidth(borderWidth);
+
+        if (borderColor != Color.TRANSPARENT) {
+            mPaintCircleBorder.setAlpha(mBorderAlpha);
+        }
 
         mPaintBackground = new Paint();
         mPaintBackground.setAntiAlias(true);
@@ -623,6 +639,15 @@ public class JoystickView extends View
         return Math.round((mPosY-mButtonRadius)*100.0f/(getHeight()-mButtonRadius*2));
     }
 
+
+    /**
+     * Return the alpha of the border
+     * @return it should be an integer between 0 and 255 previously set
+     */
+    public int getBorderAlpha() {
+        return mBorderAlpha;
+    }
+
     /*
     SETTERS
      */
@@ -668,6 +693,20 @@ public class JoystickView extends View
      */
     public void setBorderColor(int color) {
         mPaintCircleBorder.setColor(color);
+        if (color != Color.TRANSPARENT) {
+            mPaintCircleBorder.setAlpha(mBorderAlpha);
+        }
+        invalidate();
+    }
+
+
+    /**
+     * Set the border alpha for this JoystickView.
+     * @param alpha the transparency of the border between 0 and 255
+     */
+    public void setBorderAlpha(int alpha) {
+        mBorderAlpha = alpha;
+        mPaintCircleBorder.setAlpha(alpha);
         invalidate();
     }
 

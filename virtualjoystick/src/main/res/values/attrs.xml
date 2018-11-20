@@ -10,6 +10,8 @@
 
         <attr name="JV_borderColor" format="color"/>
 
+        <attr name="JV_borderAlpha" format="integer"/>
+
         <attr name="JV_backgroundColor" format="color"/>
 
         <attr name="JV_borderWidth" format="dimension"/>
