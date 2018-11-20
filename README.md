@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.9.2** _(New version - [support custom images](#image), button & background size, limited direction, normalized coordinate)_
+**v1.10.0** _(New version - [support custom images](#image), button & background size, limited direction, normalized coordinate, alpha border)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -39,7 +39,7 @@ joystick.setOnMoveListener(new JoystickView.OnMoveListener() { ... }, 17); // ar
 
 ### Attributes
 
-You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_buttonSizeRatio`, `JV_borderColor`, `JV_borderWidth`, `JV_backgroundColor`, `JV_backgroundSizeRatio`, `JV_fixedCenter`, `JV_autoReCenterButton`, `JV_buttonStickToBorder`, `JV_enabled` and `JV_buttonDirection`
+You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_buttonSizeRatio`, `JV_borderColor`, `JV_borderAlpha`, `JV_borderWidth`, `JV_backgroundColor`, `JV_backgroundSizeRatio`, `JV_fixedCenter`, `JV_autoReCenterButton`, `JV_buttonStickToBorder`, `JV_enabled` and `JV_buttonDirection`
 
 If you specified `JV_buttonImage` you don't need `JV_buttonColor`
 
@@ -152,12 +152,12 @@ For those who want more than just a snippet, here is the demo :
 If you want to add your project here, go ahead :)
 
 ## Required
-Minimum API level is 16 (Android 4.1.x - Jelly Bean) which cover 99.3% of the Android platforms as of May 2018 according to the  <a href="https://developer.android.com/about/dashboards" class="user-mention">distribution dashboard</a>.
+Minimum API level is 16 (Android 4.1.x - Jelly Bean) which cover 99.5% of the Android platforms as of October 2018 according to the  <a href="https://developer.android.com/about/dashboards" class="user-mention">distribution dashboard</a>.
 
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.9.2'
+compile 'io.github.controlwear:virtualjoystick:1.10.0'
 ```
 
 ## Contributing
@@ -181,6 +181,6 @@ limitations under the License.
 
 ## Authors
 
-**virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (spare time) and partially funded by [Black Artick](http://blackartick.com/) and [NSERC](http://www.nserc-crsng.gc.ca/index_eng.asp).
+**virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (mostly spare time) and partially funded by [Black Artick](http://blackartick.com/) and [NSERC](http://www.nserc-crsng.gc.ca/index_eng.asp).
 
-Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">teancake</a>, <a href="https://github.com/Spettacolo83" class="user-mention">Spettacolo83</a>, <a href="https://github.com/djjaysmith" class="user-mention">djjaysmith</a>, <a href="https://github.com/jaybkim1" class="user-mention">jaybkim1</a>, <a href="https://github.com/sikrinick" class="user-mention">sikrinick</a>, <a href="https://github.com/AlexandrDavydov" class="user-mention">AlexandrDavydov</a>, <a href="https://github.com/indrek-koue" class="user-mention">indrek-koue</a>, <a href="https://github.com/QitmentX7" class="user-mention">QitmentX7</a>, <a href="https://github.com/esplemea" class="user-mention">esplemea</a> and <a href="https://github.com/FenixGit" class="user-mention">FenixGit</a> for contributing.
+Also, thanks to <a href="https://github.com/Bernix01" class="user-mention">Bernix01</a>, <a href="https://github.com/teancake" class="user-mention">teancake</a>, <a href="https://github.com/Spettacolo83" class="user-mention">Spettacolo83</a>, <a href="https://github.com/djjaysmith" class="user-mention">djjaysmith</a>, <a href="https://github.com/jaybkim1" class="user-mention">jaybkim1</a>, <a href="https://github.com/sikrinick" class="user-mention">sikrinick</a>, <a href="https://github.com/AlexandrDavydov" class="user-mention">AlexandrDavydov</a>, <a href="https://github.com/indrek-koue" class="user-mention">indrek-koue</a>, <a href="https://github.com/QitmentX7" class="user-mention">QitmentX7</a>, <a href="https://github.com/esplemea" class="user-mention">esplemea</a>, <a href="https://github.com/FenixGit" class="user-mention">FenixGit</a> and <a href="https://github.com/AlexanderShniperson" class="user-mention">AlexanderShniperson</a> for contributing.
