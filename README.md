@@ -70,6 +70,14 @@ If you want a more customized joystick, you can use `JV_buttonImage` and the reg
 
 ![Alt text](/misc/android-virtual-joystick-custom-image.png?raw=true "Left joystick with custom image")
 
+#### Notice:
+If you want to add some transparent color background, you may do it using Java by the ```setBackgroundColor()``` setter just as follows:
+```Java
+    JoystickView joystick = (JoystickView) findViewById(R.id.joystickView);
+    joystick.setBackgroundColor( android.graphics.Color.argb( 255, 66, 66, 66 ) );
+    ...
+```
+
 #### SizeRatio
 We can change the default size of the button and background.
 The size is calculated as a percentage of the total width/height.
@@ -80,6 +88,8 @@ If the total (background + button) is above 1.0, the button will probably be a b
 
 ```xml
 <...
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    ...
     custom:JV_buttonSizeRatio="50%"
     custom:JV_backgroundSizeRatio="10%"/>
 
@@ -120,14 +130,16 @@ joystick.isEnabled(); // return enabled state
 By default the button can move in both direction X,Y (regular behavior), but we can limit the movement through one axe horizontal or vertical.
 ```xml
 <...
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    ...
     custom:JV_buttonDirection="horizontal"/>
 ```
 In the layout file (xml), this option can be set to `horizontal`, `vertical` or `both`.
 
-We can also set this option in the Java file by setting an integer value:
-- any negative value (e.g. -1) for the horizontal axe
-- any positive value (e.g. 1) for the vertical axe
-- zero (0) for both (which is the default option)
+We can also set this option in Java by setting an integer value:
+- Horizontal axe ```<0```
+- Vertical axe ```>0```
+- For Both axes ```0```
 
 ```java
 joystick.setButtonDirection(1); // vertical
@@ -157,7 +169,7 @@ Minimum API level is 16 (Android 4.1.x - Jelly Bean) which cover 99.5% of the An
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.10.1'
+implementation 'io.github.controlwear:virtualjoystick:1.10.1'
 ```
 
 ## Contributing
