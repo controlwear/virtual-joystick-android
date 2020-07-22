@@ -854,7 +854,7 @@ public class JoystickView extends View
     /*
     * Returns whether or not joystick is pressed, independent of angle/strength
      */
-    public void isPressed(){
+    public boolean isPressed(){
         return isPressed;
     }
 
