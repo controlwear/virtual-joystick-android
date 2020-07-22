@@ -222,6 +222,11 @@ public class JoystickView extends View
      */
     private int mButtonDirection = 0;
 
+    /*
+    * Detect if joystick has been pressed, even if strength and angle are 0
+     */
+    private boolean isPressed = false;
+
 
     /*
     CONSTRUCTORS
@@ -438,7 +443,7 @@ public class JoystickView extends View
         mPosX = mButtonDirection > 0 ? mCenterX : (int) event.getX(); // direction positive is vertical axe
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
-
+            isPressed = false;
             // stop listener because the finger left the touch screen
             mThread.interrupt();
 
@@ -456,6 +461,7 @@ public class JoystickView extends View
         }
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            isPressed = true;
             if (mThread != null && mThread.isAlive()) {
                 mThread.interrupt();
             }
@@ -843,6 +849,13 @@ public class JoystickView extends View
      */
     public void setButtonDirection(int direction) {
         mButtonDirection = direction;
+    }
+
+    /*
+    * Returns whether or not joystick is pressed, independent of angle/strength
+     */
+    public void isPressed(){
+        return isPressed;
     }
 
 
