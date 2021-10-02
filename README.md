@@ -157,7 +157,7 @@ Minimum API level is 16 (Android 4.1.x - Jelly Bean) which cover 99.5% of the An
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.10.1'
+implementation 'io.github.controlwear:virtualjoystick:1.10.1'
 ```
 
 ## Contributing
