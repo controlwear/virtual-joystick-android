@@ -340,6 +340,7 @@ public class JoystickView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // setting the measured values to resize the view to a certain width and height
         //int d = Math.min(measure(widthMeasureSpec), measure(heightMeasureSpec));
+        if(heightMeasureSpec < widthMeasureSpec) widthMeasureSpec = heightMeasureSpec;
         setMeasuredDimension(measure(widthMeasureSpec), measure(heightMeasureSpec));
     }
 
