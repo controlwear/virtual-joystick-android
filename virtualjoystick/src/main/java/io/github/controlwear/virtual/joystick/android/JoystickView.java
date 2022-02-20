@@ -56,7 +56,7 @@ public class JoystickView extends View {
     private static final int DEFAULT_LOOP_INTERVAL = 50; // in milliseconds
 
     /** Used to allow a slight move without cancelling MultipleLongPress */
-    private static final int MOVE_TOLERANCE = 10;
+    private static final int DEFAULT_DEADZONE = 10;
 
     /** Default color for button */
     private static final int DEFAULT_COLOR_BUTTON = Color.BLACK;
@@ -92,8 +92,7 @@ public class JoystickView extends View {
     private final Runnable mHandlerRunnable = new Runnable() {
         @Override
         public void run() {
-            if (mCallback != null)
-                mCallback.onMove(getAngle(), getStrength());
+            notifyOnMove(getAngle(), getStrength());
 
             mHandler.postDelayed(this, mLoopInterval);
         }
@@ -165,8 +164,11 @@ public class JoystickView extends View {
 
     private long mLoopInterval = DEFAULT_LOOP_INTERVAL;
 
-    /**  pointerID used to track the original pointer triggering the joystick */
+    /** PointerID used to track the original pointer triggering the joystick */
     private int pointerID = -1;
+
+    /** The deadzone for the joystick from 0 to 100%*/
+    private int mDeadzone;
 
 
     /**
@@ -175,7 +177,7 @@ public class JoystickView extends View {
      * - a positive value for vertical axe
      * - zero for both axes
      */
-    private int mButtonDirection = 0;
+    private int mButtonDirection;
 
     /** axis to be centered */
     private AxisToCenter axisToCenter = AxisToCenter.BOTH;
@@ -231,7 +233,7 @@ public class JoystickView extends View {
             mFixedCenter = styledAttributes.getBoolean(R.styleable.JoystickView_JV_fixedCenter, DEFAULT_FIXED_CENTER);
             mAutoReCenterButton = styledAttributes.getBoolean(R.styleable.JoystickView_JV_autoReCenterButton, DEFAULT_AUTO_RECENTER_BUTTON);
             mButtonStickToBorder = styledAttributes.getBoolean(R.styleable.JoystickView_JV_buttonStickToBorder, DEFAULT_BUTTON_STICK_TO_BORDER);
-
+            mDeadzone = styledAttributes.getInteger(R.styleable.JoystickView_JV_deadzone, DEFAULT_DEADZONE);
             mEnabled = styledAttributes.getBoolean(R.styleable.JoystickView_JV_enabled, true);
             mButtonSizeRatio = styledAttributes.getFraction(R.styleable.JoystickView_JV_buttonSizeRatio, 1, 1, 0.25f);
             mBackgroundSizeRatio = styledAttributes.getFraction(R.styleable.JoystickView_JV_backgroundSizeRatio, 1, 1, 0.75f);
@@ -335,7 +337,6 @@ public class JoystickView extends View {
         mForwardLockCenterY = mFixedCenterY - mForwardLockDistance;
     }
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // setting the measured values to resize the view to a certain width and height
@@ -402,8 +403,7 @@ public class JoystickView extends View {
                 resetButtonPosition();
 
                 // update now the last strength and angle which should be zero after resetButton
-                if (mCallback != null) mCallback.onMove(getAngle(), getStrength());
-
+                notifyOnMove(getAngle(), getStrength());
             }
 
             // if mAutoReCenterButton is false we will send the last strength and angle a bit
@@ -412,8 +412,9 @@ public class JoystickView extends View {
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             // Check if the pointer is inside the original joystick zone
-            if(Math.hypot(Math.abs(mCenterX - event.getX()), Math.abs(mCenterY - event.getY())) > mBackgroundRadius)
-                return false; // The event isn't handled, let the rest of the layout take care of it
+
+            if(Math.hypot(Math.abs(mFixedCenterX - event.getX()), Math.abs(mFixedCenterY - event.getY())) > mBackgroundRadius + mPaintCircleBorder.getStrokeWidth())
+                return false; // outside of the round joystick
 
             // Map the pointerID
             pointerID = event.getPointerId(0);
@@ -423,8 +424,7 @@ public class JoystickView extends View {
             // Start sending events at a delayed fixed rate
             start();
 
-            if (mCallback != null)
-                mCallback.onMove(getAngle(), getStrength());
+            notifyOnMove(getAngle(), getStrength());
         }
 
 
@@ -450,7 +450,7 @@ public class JoystickView extends View {
         // Compute the forward lock state, if ever needed
         if(mForwardLockDistance != 0){
             boolean forwardLock;
-            forwardLock = (Math.hypot(Math.abs(mForwardLockCenterX - event.getX()), Math.abs(mForwardLockCenterY - event.getY())) < mButtonRadius);
+            forwardLock = (Math.hypot(Math.abs(mForwardLockCenterX - event.getX()), Math.abs(mForwardLockCenterY - event.getY())) < mButtonRadius + mPaintCircleBorder.getStrokeWidth());
 
             if(forwardLock != mForwardLock){
                 mForwardLock = forwardLock;
@@ -460,8 +460,7 @@ public class JoystickView extends View {
 
         if (!mAutoReCenterButton) {
             // Now update the last strength and angle if not reset to center
-            if (mCallback != null)
-                mCallback.onMove(getAngle(), getStrength());
+            notifyOnMove(getAngle(), getStrength());
         }
 
 
@@ -469,6 +468,14 @@ public class JoystickView extends View {
         invalidate();
 
         return true;
+    }
+
+    /** Check if a callback exists, and apply deadzone */
+    private void notifyOnMove(int angle, int strength){
+        if(mCallback == null) return;
+        if(strength < mDeadzone) strength = 0;
+        mCallback.onMove(angle, strength);
+
     }
 
 
@@ -555,7 +562,7 @@ public class JoystickView extends View {
      * Default is 0.75 (75%).
      * @return background size (value between 0.0 and 1.0)
      */
-    public float getmBackgroundSizeRatio() {
+    public float getBackgroundSizeRatio() {
         return mBackgroundSizeRatio;
     }
 
