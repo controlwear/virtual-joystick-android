@@ -4,8 +4,6 @@
 
     <declare-styleable name="JoystickView">
 
-        <attr name="JV_buttonImage" format="reference" />
-
         <attr name="JV_buttonColor" format="color"/>
 
         <attr name="JV_borderColor" format="color"/>
@@ -27,6 +25,8 @@
         <attr name="JV_buttonSizeRatio" format="fraction"/>
 
         <attr name="JV_backgroundSizeRatio" format="fraction"/>
+
+        <attr name="JV_forwardLockDistance" format="dimension"/>
 
         <attr name="JV_buttonDirection">
             <flag name="horizontal" value="-1"/>
