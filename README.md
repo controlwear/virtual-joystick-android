@@ -1,6 +1,6 @@
 # virtual-joystick-android
 
-**v1.10.1** _(New version - [support custom images](#image), button & background size, limited direction, normalized coordinate, alpha border)_
+**v1.10.1** _(New version -  button & background size, limited direction, normalized coordinate, alpha border)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
 
@@ -25,6 +25,11 @@ protected void onCreate(Bundle savedInstanceState) {
         public void onMove(int angle, int strength) {
             // do whatever you want
         }
+        
+        @Override
+        public void onForwardLock(boolean forwardLock){
+            // do whatever you want, overriding this function is optionnal
+        }
     });
 }
 ```
@@ -39,9 +44,7 @@ joystick.setOnMoveListener(new JoystickView.OnMoveListener() { ... }, 17); // ar
 
 ### Attributes
 
-You can customize the joystick according to these attributes `JV_buttonImage`, `JV_buttonColor`, `JV_buttonSizeRatio`, `JV_borderColor`, `JV_borderAlpha`, `JV_borderWidth`, `JV_backgroundColor`, `JV_backgroundSizeRatio`, `JV_fixedCenter`, `JV_autoReCenterButton`, `JV_buttonStickToBorder`, `JV_enabled` and `JV_buttonDirection`
-
-If you specified `JV_buttonImage` you don't need `JV_buttonColor`
+You can customize the joystick according to these attributes `JV_buttonColor`, `JV_buttonSizeRatio`, `JV_borderColor`, `JV_borderAlpha`, `JV_borderWidth`, `JV_backgroundColor`, `JV_backgroundSizeRatio`, `JV_fixedCenter`, `JV_autoReCenterButton`, `JV_buttonStickToBorder`, `JV_enabled`, `JV_buttonDirection`, `JV_deadzone` and `JV_forwardLockDistance`
 
 Here is an example for your layout resources:
 ```xml
@@ -56,19 +59,6 @@ Here is an example for your layout resources:
     custom:JV_borderWidth="4dp"
     custom:JV_fixedCenter="false"/>
 ```
-#### Image
-If you want a more customized joystick, you can use `JV_buttonImage` and the regular `background` attributes to specify drawables. The images will be automatically resized.
-
-```xml
-<io.github.controlwear.virtual.joystick.android.JoystickView
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/joystick_base_blue"
-    custom:JV_buttonImage="@drawable/ball_pink"/>
-```
-
-![Alt text](/misc/android-virtual-joystick-custom-image.png?raw=true "Left joystick with custom image")
 
 #### SizeRatio
 We can change the default size of the button and background.
@@ -89,8 +79,6 @@ If the total (background + button) is above 1.0, the button will probably be a b
 joystick.setBackgroundSizeRatio(0.5);
 joystick.setButtonSizeRatio(0.1);
 ```
-
-_The background size is not working for a custom picture._
 
 #### FixedCenter or Not? (and auto re-center)
 If you don’t set up this parameter, it will be FixedCenter by default, which is the regular behavior.
@@ -133,31 +121,35 @@ We can also set this option in the Java file by setting an integer value:
 joystick.setButtonDirection(1); // vertical
 ```
 
-### Wearable
-If you use this library in Wearable app, you will probably disable the Swipe-To-Dismiss Gesture and implement the Long Press to Dismiss Pattern, which could be a problem for a Joystick Pattern (because we usually let the user touch the joystick as long as she/he wants), in that case you can set another convenient listener: `OnMultipleLongPressListener` which will be invoked only with multiple pointers (at least two fingers) instead of one.
-```java
-joystick.setOnMultiLongPressListener(new JoystickView.OnMultipleLongPressListener() {
-    @Override
-    public void onMultipleLongPress() {
-        ... // eg. mDismissOverlay.show();
-    }
-});
+#### Deadzone
+Most joysticks have an inner deadzone, else games would feel hypersensitive in their inputs.
+By default, the deadzone is at 10% strength.
+To change the deadzone, you can specify the following in xml.
+```xml
+<...
+    custom:JV_deadzone="integer"/>
 ```
-Or better, if you just want a simple Joystick (and few other cool stuff) as a controller for your mobile app you can use the following related project ;)
 
-## Demo
-For those who want more than just a snippet, here is the demo :
-- [Basic two joysticks ](https://github.com/controlwear/virtual-joystick-demo) (similar to screenshot)
+#### ForwardLockDistance
+By default, the button doesn't have any forward locking, as it may not be desirable in all situations
+To enable forward locking, you need to specify a distance != 0 in xml.
 
-If you want to add your project here, go ahead :)
+```xml
+<...
+    custom:JV_forwardLockDistance="dimension"/>
+```
+
+_For those who don't know, forward locking is this thing in CODM and PUBG where the stick can stay forward so you can keep moving without wasting fingers_
+
+
 
 ## Required
-Minimum API level is 16 (Android 4.1.x - Jelly Bean) which cover 99.5% of the Android platforms as of October 2018 according to the  <a href="https://developer.android.com/about/dashboards" class="user-mention">distribution dashboard</a>.
+Minimum API level is 10 (Android 2.3.6 - Gingerbread) which cover **100%** of the Android platforms as of February 2022 according to the <a href="https://developer.android.com/about/dashboards" class="user-mention">distribution dashboard</a>.
 
 ## Download
 ### Gradle
 ```java
-compile 'io.github.controlwear:virtualjoystick:1.10.1'
+
 ```
 
 ## Contributing
@@ -180,6 +172,8 @@ limitations under the License.
 ```
 
 ## Authors
+
+This repository is maintained by <a href="https://github.com/Mathias-Boulay" class="user-mention">@Mathias-Boulay</a>
 
 **virtual-joystick-android** is an open source project created by <a href="https://github.com/makowildcat" class="user-mention">@makowildcat</a> (mostly spare time) and partially funded by [Black Artick](http://blackartick.com/) and [NSERC](http://www.nserc-crsng.gc.ca/index_eng.asp).
 
