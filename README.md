@@ -149,7 +149,9 @@ Minimum API level is 10 (Android 2.3.6 - Gingerbread) which cover **100%** of th
 ## Download
 ### Gradle
 ```java
-
+dependencies {
+	        implementation 'com.github.Mathias-Boulay:virtual-joystick-android:v1.12.2'
+	}
 ```
 
 ## Contributing
