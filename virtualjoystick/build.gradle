@@ -25,7 +25,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
 }
-/*
+
 ext {
     // Where you will see your artifact in Bintray's web interface
     // The "bintrayName" should match the name of the Bintray repro.
@@ -40,13 +40,12 @@ ext {
     artifact = 'virtualjoystick'
 
     libraryDescription = 'This library provides a very simple and ready-to-use custom view which emulates a joystick for Android.'
-    libraryVersion = '1.10.1'
+    libraryVersion = '1.12.2'
 
-    developerId = 'makowildcat'
-    developerName = 'Damien Brun'
-    developerEmail = 'makowildcat@gmail.com'
+    developerId = 'Mathias-Boulay'
+    developerName = 'Mathias Boulay'
+    developerEmail = 'serpentspirale@gmail.com'
 }
 
 apply from: 'https://raw.githubusercontent.com/attwellbrian/JCenter/master/installv1.gradle'
 apply from: 'https://raw.githubusercontent.com/attwellbrian/JCenter/master/bintrayv1.gradle'
-*/
