@@ -1,5 +1,7 @@
 # virtual-joystick-android
 
+[![](https://jitpack.io/v/Mathias-Boulay/virtual-joystick-android.svg)](https://jitpack.io/#Mathias-Boulay/virtual-joystick-android)
+
 **v1.10.1** _(New version -  button & background size, limited direction, normalized coordinate, alpha border)_
 
 _I created this very simple library as a learning process and I have been inspired by this project [JoystickView](https://github.com/zerokol/JoystickView) (the author is a genius!)_
@@ -150,7 +152,7 @@ Minimum API level is 10 (Android 2.3.6 - Gingerbread) which cover **100%** of th
 ### Gradle
 ```java
 dependencies {
-	        implementation 'com.github.Mathias-Boulay:virtual-joystick-android:v1.12.2'
+	        implementation 'com.github.Mathias-Boulay:virtual-joystick-android:1.12.3'
 	}
 ```
 
