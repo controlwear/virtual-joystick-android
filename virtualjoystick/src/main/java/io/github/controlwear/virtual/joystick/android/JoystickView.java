@@ -777,6 +777,14 @@ public class JoystickView extends View {
     }
 
     /**
+     * Set the joystick deadzone from 0-100. Having no of full deadzone is not recommended
+     * @param deadzone The deadzone, from 0-100. Strengths lower than it get reduced to 0.
+     */
+    public void setDeadzone(int deadzone){
+        mDeadzone = deadzone;
+    }
+
+    /**
      * get axis to be centered
      * @return
      */
