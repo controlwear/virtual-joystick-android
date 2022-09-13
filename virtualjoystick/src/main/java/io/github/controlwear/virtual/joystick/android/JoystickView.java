@@ -784,9 +784,14 @@ public class JoystickView extends View {
         mDeadzone = deadzone;
     }
 
-    /** Enable the forward lock function */
+    /** Enable the forward lock state */
     public void setForwardLock(boolean enabled){
         mForwardLock = true;
+    }
+
+    /** Set the distance before the forward lock is enabled. 0 Disables it */
+    public void setForwardLockDistance(int distance){
+        mForwardLockDistance = distance;
     }
 
     /**
