@@ -792,6 +792,7 @@ public class JoystickView extends View {
     /** Set the distance before the forward lock is enabled. 0 Disables it */
     public void setForwardLockDistance(int distance){
         mForwardLockDistance = distance;
+        mForwardLockCenterY = mFixedCenterY - mForwardLockDistance;
     }
 
     /**
