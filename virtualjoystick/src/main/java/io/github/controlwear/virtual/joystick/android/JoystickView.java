@@ -784,6 +784,11 @@ public class JoystickView extends View {
         mDeadzone = deadzone;
     }
 
+    /** Enable the forward lock function */
+    public void setForwardLock(boolean enabled){
+        mForwardLock = true;
+    }
+
     /**
      * get axis to be centered
      * @return
