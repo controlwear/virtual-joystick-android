@@ -1,4 +1,7 @@
-apply plugin: 'com.android.library'
+plugins{
+  id 'com.android.library'
+  id 'maven-publish'
+}
 
 android {
     compileSdkVersion 31
@@ -6,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 31
-        versionCode 21
-        versionName "1.12.2"
+        versionCode 22
+        versionName "1.13.1"
     }
     buildTypes {
         release {
@@ -26,26 +29,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-ext {
-    // Where you will see your artifact in Bintray's web interface
-    // The "bintrayName" should match the name of the Bintray repro.
-    bintrayRepo = 'maven'
-    bintrayName = 'virtual-joystick-android'
-
-    // Maven metadata
-    publishedGroupId = 'io.github.controlwear'
-    libraryName = 'virtual-joystick-android'
-    // Save yourself a head ache, and set this equal to the name of the Android Studio library
-    // module. The artifact name needs to match the name of the library.
-    artifact = 'virtualjoystick'
-
-    libraryDescription = 'This library provides a very simple and ready-to-use custom view which emulates a joystick for Android.'
-    libraryVersion = '1.12.2'
-
-    developerId = 'Mathias-Boulay'
-    developerName = 'Mathias Boulay'
-    developerEmail = 'serpentspirale@gmail.com'
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'com.github.Mathias-Boulay'
+                artifactId = 'virtual-joystick-android'
+                version = '1.13.1'
+            }
+        }
+    }
 }
-
-apply from: 'https://raw.githubusercontent.com/attwellbrian/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/attwellbrian/JCenter/master/bintrayv1.gradle'
