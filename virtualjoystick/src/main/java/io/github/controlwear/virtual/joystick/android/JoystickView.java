@@ -417,7 +417,8 @@ public class JoystickView extends View {
                 return false; // outside of the round joystick
 
             // Map the pointerID
-            pointerID = event.getPointerId(0);
+            pointerID = event.getPointerId(event.getActionIndex());
+
             mPosY = mButtonDirection < 0 ? mCenterY : (int) event.getY(); // direction negative is horizontal axe
             mPosX = mButtonDirection > 0 ? mCenterX : (int) event.getX(); // direction positive is vertical axe
 
