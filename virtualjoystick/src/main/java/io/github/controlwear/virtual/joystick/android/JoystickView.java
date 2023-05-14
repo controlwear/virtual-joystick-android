@@ -52,9 +52,6 @@ public class JoystickView extends View {
     /** Default value for both directions (horizontal and vertical movement) */
     public static int BUTTON_DIRECTION_BOTH = 0;
 
-    /** Default refresh rate as a time in milliseconds to send move values through callback */
-    private static final int DEFAULT_LOOP_INTERVAL = 50; // in milliseconds
-
     /** Used to allow a slight move without cancelling MultipleLongPress */
     private static final int DEFAULT_DEADZONE = 10;
 
@@ -86,18 +83,6 @@ public class JoystickView extends View {
 
     /** Default behavior to button stickToBorder (button stay on the border) */
     private static final boolean DEFAULT_BUTTON_STICK_TO_BORDER = false;
-
-    /** Handler and associated runnable, dealing with sending updates from the main Thread */
-    private final Handler mHandler = new Handler(Looper.getMainLooper());
-    private final Runnable mHandlerRunnable = new Runnable() {
-        @Override
-        public void run() {
-            notifyOnMove(getAngle(), getStrength());
-
-            mHandler.postDelayed(this, mLoopInterval);
-        }
-    };
-
 
     // DRAWING
     private final Paint mPaintCircleButton;
@@ -161,8 +146,6 @@ public class JoystickView extends View {
 
     /** Listener used to dispatch OnMove event */
     private OnMoveListener mCallback;
-
-    private long mLoopInterval = DEFAULT_LOOP_INTERVAL;
 
     /** PointerID used to track the original pointer triggering the joystick */
     private int pointerID = -1;
@@ -395,15 +378,9 @@ public class JoystickView extends View {
             // Reset the pointerID;
             pointerID = -1;
 
-            // stop listener because the finger left the touch screen
-            stop();
-
             // re-center the button or not (depending on settings)
             if (mAutoReCenterButton) {
                 resetButtonPosition();
-
-                // update now the last strength and angle which should be zero after resetButton
-                notifyOnMove(getAngle(), getStrength());
             }
 
             // if mAutoReCenterButton is false we will send the last strength and angle a bit
@@ -421,11 +398,6 @@ public class JoystickView extends View {
 
             mPosY = mButtonDirection < 0 ? mCenterY : (int) event.getY(); // direction negative is horizontal axe
             mPosX = mButtonDirection > 0 ? mCenterX : (int) event.getX(); // direction positive is vertical axe
-
-            // Start sending events at a delayed fixed rate
-            start();
-
-            notifyOnMove(getAngle(), getStrength());
         }
 
 
@@ -462,11 +434,8 @@ public class JoystickView extends View {
             }
         }
 
-        if (!mAutoReCenterButton) {
-            // Now update the last strength and angle if not reset to center
-            notifyOnMove(getAngle(), getStrength());
-        }
-
+        // Events are instantaneous now
+        notifyOnMove(getAngle(), getStrength());
 
         // to force a new draw
         invalidate();
@@ -479,7 +448,6 @@ public class JoystickView extends View {
         if(mCallback == null) return;
         if(strength < mDeadzone) strength = 0;
         mCallback.onMove(angle, strength);
-
     }
 
 
@@ -688,20 +656,8 @@ public class JoystickView extends View {
      * @param l The callback that will run
      */
     public void setOnMoveListener(OnMoveListener l) {
-        setOnMoveListener(l, DEFAULT_LOOP_INTERVAL);
-    }
-
-
-    /**
-     * Register a callback to be invoked when this JoystickView's button is moved
-     * @param l The callback that will run
-     * @param loopInterval Refresh rate to be invoked in milliseconds
-     */
-    public void setOnMoveListener(OnMoveListener l, int loopInterval) {
         mCallback = l;
-        mLoopInterval = loopInterval;
     }
-
 
     /**
      * Set the joystick center's behavior (fixed or auto-defined)
@@ -814,19 +770,4 @@ public class JoystickView extends View {
     public void setAxisToCenter(AxisToCenter axisToCenter) {
         this.axisToCenter = axisToCenter;
     }
-
-    /*
-    Thread simulation
-     */
-
-    /** Start sending joystick events */
-    private void start(){
-        mHandler.postDelayed(mHandlerRunnable, mLoopInterval);
-    }
-
-    /** Stop sending joystick events */
-    private void stop(){
-        mHandler.removeCallbacks(mHandlerRunnable);
-    }
-
 }
