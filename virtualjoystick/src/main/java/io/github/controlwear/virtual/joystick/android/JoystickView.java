@@ -451,7 +451,10 @@ public class JoystickView extends View {
         // Compute the forward lock state, if ever needed
         if(mForwardLockDistance != 0){
             boolean forwardLock;
-            forwardLock = (Math.hypot(Math.abs(mForwardLockCenterX - event.getX()), Math.abs(mForwardLockCenterY - event.getY())) < mButtonRadius + mPaintCircleBorder.getStrokeWidth());
+            if(mForwardLockCenterY - event.getY() > 0)
+                forwardLock = true;
+            else forwardLock = (Math.hypot(Math.abs(mForwardLockCenterX - event.getX()), Math.abs(mForwardLockCenterY - event.getY())) < mButtonRadius + mPaintCircleBorder.getStrokeWidth());
+
 
             if(forwardLock != mForwardLock){
                 mForwardLock = forwardLock;
