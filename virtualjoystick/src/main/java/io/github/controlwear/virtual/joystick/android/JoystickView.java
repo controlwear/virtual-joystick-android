@@ -751,8 +751,12 @@ public class JoystickView extends View {
 
     /** Set the distance before the forward lock is enabled. 0 Disables it */
     public void setForwardLockDistance(int distance){
-        mForwardLockDistance = distance;
-        mForwardLockCenterY = mFixedCenterY - mForwardLockDistance;
+        // The post delayed is to account for non inflated layouts
+        postDelayed(() -> {
+            mForwardLockDistance = distance > 0 ? distance + getHeight()/2 : 0;
+            mForwardLockCenterY = mFixedCenterY - mForwardLockDistance;
+
+        }, 0);
     }
 
     /**
