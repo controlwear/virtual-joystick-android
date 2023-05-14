@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <io.github.controlwear.virtual.joystick.android.JoystickView
+        android:id="@+id/joystick"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+
+        app:JV_backgroundColor="@color/purple_200"
+        app:JV_borderColor="@color/purple_500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.824" />
+
+    <Switch
+        android:id="@+id/switch_fixed_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enable fixed centering"
+        app:layout_constraintBottom_toTopOf="@+id/switch_sticky_border"
+        app:layout_constraintStart_toStartOf="@+id/switch_auto_center"
+        app:layout_constraintTop_toBottomOf="@+id/switch_auto_center" />
+
+    <Switch
+        android:id="@+id/switch_axis_snap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enable axis snapping"
+        app:layout_constraintBottom_toTopOf="@+id/switch_auto_center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/switch_auto_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enable auto centering"
+        app:layout_constraintBottom_toTopOf="@+id/switch_fixed_center"
+        app:layout_constraintStart_toStartOf="@+id/switch_axis_snap"
+        app:layout_constraintTop_toBottomOf="@+id/switch_axis_snap" />
+
+    <Switch
+        android:id="@+id/switch_sticky_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enable sticky border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/switch_fixed_center"
+        app:layout_constraintTop_toBottomOf="@+id/switch_fixed_center" />
+
+
+</android.support.constraint.ConstraintLayout>
