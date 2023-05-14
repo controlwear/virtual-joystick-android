@@ -29,5 +29,7 @@ public class MainActivity extends AppCompatActivity {
         joystick.setAutoReCenterButton(autoCenterSwitch.isChecked());
 
 
+        joystick.setForwardLockDistance(30);
+
     }
 }

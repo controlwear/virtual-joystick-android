@@ -34,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enable axis snapping"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/switch_auto_center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
