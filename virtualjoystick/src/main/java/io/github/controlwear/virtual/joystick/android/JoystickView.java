@@ -101,7 +101,6 @@ public class JoystickView extends View {
     private int mCenterX = 0;
     private int mCenterY = 0;
     private int mForwardLockCenterX = 0;
-    private int mForwardLockCenterY = 0;
 
     private int mFixedCenterX = 0;
     private int mFixedCenterY = 0;
@@ -111,6 +110,9 @@ public class JoystickView extends View {
 
     /** The distance before locking forward, 0 means forward locking is disabled */
     private int mForwardLockDistance;
+
+    /** Caching variable */
+    private int mForwardLockCenterY;
 
     /** Used to adapt behavior whether it is auto-defined center (false) or fixed center (true) */
     private boolean mFixedCenter;
@@ -271,7 +273,9 @@ public class JoystickView extends View {
         canvas.drawCircle(mFixedCenterX, mFixedCenterY, mBorderRadius, mPaintCircleBorder);
 
         // When the joystick is triggered, we need to display another circle for the lock on forward
+
         if(pointerID != -1 && mForwardLockDistance != 0){
+            getForwardLockDistance();
             canvas.drawCircle(mFixedCenterX, mForwardLockCenterY, mButtonRadius, mPaintBackground);
             canvas.drawCircle(mFixedCenterX, mForwardLockCenterY, mButtonRadius, mPaintCircleBorder);
         }
@@ -476,6 +480,13 @@ public class JoystickView extends View {
         return (int) (100 * Math.sqrt((mPosX - mCenterX)
                 * (mPosX - mCenterX) + (mPosY - mCenterY)
                 * (mPosY - mCenterY)) / mBorderRadius);
+    }
+
+    /** Compute the distance dynamically with the current height and distance setting */
+    private int getForwardLockDistance(){
+        int lockDistance =  (mForwardLockDistance + getHeight()/2);
+        mForwardLockCenterY = mFixedCenterY - lockDistance;
+        return lockDistance;
     }
 
 
@@ -751,12 +762,7 @@ public class JoystickView extends View {
 
     /** Set the distance before the forward lock is enabled. 0 Disables it */
     public void setForwardLockDistance(int distance){
-        // The post delayed is to account for non inflated layouts
-        postDelayed(() -> {
-            mForwardLockDistance = distance > 0 ? distance + getHeight()/2 : 0;
-            mForwardLockCenterY = mFixedCenterY - mForwardLockDistance;
-
-        }, 0);
+        mForwardLockDistance = distance;
     }
 
     /**
