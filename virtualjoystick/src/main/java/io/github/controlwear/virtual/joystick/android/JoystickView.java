@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -272,7 +273,12 @@ public class JoystickView extends View {
 
             @Override
             public void onViewDetachedFromWindow(View v) {
-                ((ViewGroup)getParent()).removeView(mForwardLockView);
+                try {
+                    ((ViewGroup)getParent()).removeView(mForwardLockView);
+                }catch (Exception e) {
+                    Log.e(JoystickView.class.toString(), "View already removed !");
+                }
+
             }
         });
     }
