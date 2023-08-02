@@ -7,7 +7,7 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        minSdkVersion 10
+        minSdkVersion 12
         targetSdkVersion 33
         versionCode 22
         versionName "1.13.1"

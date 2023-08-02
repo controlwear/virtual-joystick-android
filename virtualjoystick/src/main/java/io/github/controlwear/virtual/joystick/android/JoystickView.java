@@ -6,11 +6,10 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
 public class JoystickView extends View {
 
@@ -140,6 +139,8 @@ public class JoystickView extends View {
     private int mButtonRadius;
     private int mBorderRadius;
 
+    private int mForwardLockViewSize;
+
     /** Alpha of the border (to use when changing color dynamically) */
     private int mBorderAlpha;
 
@@ -166,6 +167,9 @@ public class JoystickView extends View {
 
     /** axis to be centered */
     private AxisToCenter axisToCenter = AxisToCenter.BOTH;
+
+    /** For internal use only, a view to display for cosmetic purposes */
+    private JoystickLockView mForwardLockView;
 
 
     /*
@@ -250,6 +254,27 @@ public class JoystickView extends View {
         mPaintBackground.setColor(backgroundColor);
         mPaintBackground.setStyle(Paint.Style.FILL);
 
+        // Create the companion view and handle its lifecycle
+        mForwardLockView = new JoystickLockView(getContext(), mButtonRadius, mPaintBackground, mPaintCircleBorder);
+        addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View v) {
+                postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mForwardLockView.setVisibility(GONE);
+                        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams((int) (2*mForwardLockViewSize), (int) (2*mForwardLockViewSize));
+                        ((ViewGroup)getParent()).addView(mForwardLockView, layoutParams);
+                    }
+                }, 100);
+
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(View v) {
+                ((ViewGroup)getParent()).removeView(mForwardLockView);
+            }
+        });
     }
 
 
@@ -276,8 +301,12 @@ public class JoystickView extends View {
 
         if(pointerID != -1 && mForwardLockDistance != 0){
             getForwardLockDistance();
-            canvas.drawCircle(mFixedCenterX, mForwardLockCenterY, mButtonRadius, mPaintBackground);
-            canvas.drawCircle(mFixedCenterX, mForwardLockCenterY, mButtonRadius, mPaintCircleBorder);
+
+            mForwardLockView.setVisibility(VISIBLE);
+            mForwardLockView.setX(getX() + getWidth()/2 - mForwardLockViewSize);
+            mForwardLockView.setY(getY() - mForwardLockDistance - mForwardLockViewSize);
+        }else {
+            mForwardLockView.setVisibility(GONE);
         }
 
         if(mForwardLock){
@@ -322,6 +351,9 @@ public class JoystickView extends View {
         // Compute how far the forward distance can go
         mForwardLockDistance = Math.min(mForwardLockDistance, mFixedCenterY - (int) mPaintCircleBorder.getStrokeWidth()/2);
         mForwardLockCenterY = mFixedCenterY - mForwardLockDistance;
+
+        mForwardLockViewSize = (int) (mButtonRadius + (mPaintCircleBorder.getStrokeWidth() ));
+        mForwardLockView.setRadius(mButtonRadius);
     }
 
     @Override
@@ -434,6 +466,7 @@ public class JoystickView extends View {
 
             if(forwardLock != mForwardLock){
                 mForwardLock = forwardLock;
+                mForwardLockView.setEnabled(mForwardLock);
                 if(mCallback != null) mCallback.onForwardLock(mForwardLock);
             }
         }
