@@ -264,7 +264,7 @@ public class JoystickView extends View {
                     @Override
                     public void run() {
                         mForwardLockView.setVisibility(GONE);
-                        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams((int) (2*mForwardLockViewSize), (int) (2*mForwardLockViewSize));
+                        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(2*mForwardLockViewSize,2*mForwardLockViewSize);
                         ((ViewGroup)getParent()).addView(mForwardLockView, layoutParams);
                     }
                 }, 100);
@@ -273,13 +273,9 @@ public class JoystickView extends View {
 
             @Override
             public void onViewDetachedFromWindow(View v) {
-                try {
-                    removeOnAttachStateChangeListener(this);
+                removeOnAttachStateChangeListener(this);
+                if (mForwardLockView.isAttachedToWindow())
                     ((ViewGroup)getParent()).removeView(mForwardLockView);
-                }catch (Exception e) {
-                    Log.e(JoystickView.class.toString(), "View already removed !");
-                }
-
             }
         });
     }
