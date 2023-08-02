@@ -274,6 +274,7 @@ public class JoystickView extends View {
             @Override
             public void onViewDetachedFromWindow(View v) {
                 try {
+                    removeOnAttachStateChangeListener(this);
                     ((ViewGroup)getParent()).removeView(mForwardLockView);
                 }catch (Exception e) {
                     Log.e(JoystickView.class.toString(), "View already removed !");
