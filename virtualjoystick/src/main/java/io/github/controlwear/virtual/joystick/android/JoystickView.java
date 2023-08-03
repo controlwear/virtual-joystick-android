@@ -376,7 +376,12 @@ public class JoystickView extends View {
         mForwardLockDistance = Math.min(mForwardLockDistance, mFixedCenterY - (int) mPaintCircleBorder.getStrokeWidth()/2);
         mForwardLockCenterY = mFixedCenterY - mForwardLockDistance;
 
+        // Adjust the forward lock view
         mForwardLockViewSize = (int) (mButtonRadius + (mPaintCircleBorder.getStrokeWidth() ));
+        ViewGroup.LayoutParams params = mForwardLockView.getLayoutParams();
+        params.width = 2*mForwardLockViewSize;
+        params.height = 2*mForwardLockViewSize;
+        mForwardLockView.setLayoutParams(params);
         mForwardLockView.setRadius(mButtonRadius);
     }
 
