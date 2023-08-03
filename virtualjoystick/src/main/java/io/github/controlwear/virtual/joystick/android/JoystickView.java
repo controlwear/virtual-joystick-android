@@ -297,6 +297,17 @@ public class JoystickView extends View {
         mFixedCenterY = mCenterY = mPosY = getHeight() - (getWidth() / 2);
     }
 
+    public boolean isVisible() {
+        return getVisibility() == VISIBLE;
+    }
+
+    @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
+        if(visibility == GONE || visibility == INVISIBLE) {
+            mForwardLockView.setVisibility(visibility);
+        }
+    }
 
     /**
      * Draw the background, the border and the button
@@ -314,8 +325,8 @@ public class JoystickView extends View {
 
         if(pointerID != -1 && mForwardLockDistance != 0){
             getForwardLockDistance();
-
-            mForwardLockView.setVisibility(VISIBLE);
+            
+            mForwardLockView.setVisibility(isVisible() ? VISIBLE: INVISIBLE);
             mForwardLockView.setX(getX() + getWidth()/2 - mForwardLockViewSize);
             mForwardLockView.setY(getY() - mForwardLockDistance - mForwardLockViewSize);
         }else {
