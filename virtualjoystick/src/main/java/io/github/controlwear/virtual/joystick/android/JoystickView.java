@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.VectorDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -114,6 +115,9 @@ public class JoystickView extends View {
     /** Caching variable */
     private int mForwardLockCenterY;
 
+    /** Drawable used when the joystick is in forward lock mode */
+    private final VectorDrawable mForwardLockDrawable;
+
     /** Used to adapt behavior whether it is auto-defined center (false) or fixed center (true) */
     private boolean mFixedCenter;
 
@@ -170,7 +174,7 @@ public class JoystickView extends View {
     private AxisToCenter axisToCenter = AxisToCenter.BOTH;
 
     /** For internal use only, a view to display for cosmetic purposes */
-    private JoystickLockView mForwardLockView;
+    private final JoystickLockView mForwardLockView;
 
 
     /*
@@ -255,6 +259,7 @@ public class JoystickView extends View {
         mPaintBackground.setColor(backgroundColor);
         mPaintBackground.setStyle(Paint.Style.FILL);
 
+        mForwardLockDrawable = (VectorDrawable) getContext().getDrawable(R.drawable.lock);
         // Create the companion view and handle its lifecycle
         mForwardLockView = new JoystickLockView(getContext(), mButtonRadius, mPaintBackground, mPaintCircleBorder);
         addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
@@ -325,7 +330,7 @@ public class JoystickView extends View {
 
         if(pointerID != -1 && mForwardLockDistance != 0){
             getForwardLockDistance();
-            
+
             mForwardLockView.setVisibility(isVisible() ? VISIBLE: INVISIBLE);
             mForwardLockView.setX(getX() + getWidth()/2 - mForwardLockViewSize);
             mForwardLockView.setY(getY() - mForwardLockDistance - mForwardLockViewSize);
@@ -340,6 +345,14 @@ public class JoystickView extends View {
                     mButtonRadius,
                     mPaintCircleButton
             );
+
+            int size = (int) (mButtonRadius * 0.7);
+            mForwardLockDrawable.setBounds(
+                    mFixedCenterX - size,
+                    (int) (mFixedCenterY - mBackgroundRadius - size),
+                    mFixedCenterX + size,
+                    (int) (mFixedCenterY - mBackgroundRadius + size));
+            mForwardLockDrawable.draw(canvas);
         }else {
             canvas.drawCircle(
                     mPosX + mFixedCenterX - mCenterX,
