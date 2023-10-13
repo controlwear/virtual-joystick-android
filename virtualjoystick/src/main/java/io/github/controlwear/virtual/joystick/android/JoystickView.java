@@ -262,6 +262,7 @@ public class JoystickView extends View {
         mForwardLockDrawable = (VectorDrawable) getContext().getDrawable(R.drawable.lock);
         // Create the companion view and handle its lifecycle
         mForwardLockView = new JoystickLockView(getContext(), mButtonRadius, mPaintBackground, mPaintCircleBorder);
+        mForwardLockView.setAlpha(getAlpha());
         addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
             @Override
             public void onViewAttachedToWindow(View v) {
@@ -311,6 +312,14 @@ public class JoystickView extends View {
         super.setVisibility(visibility);
         if(visibility == GONE || visibility == INVISIBLE) {
             mForwardLockView.setVisibility(visibility);
+        }
+    }
+
+    @Override
+    public void setAlpha(float alpha) {
+        super.setAlpha(alpha);
+        if(mForwardLockView != null) {
+            mForwardLockView.setAlpha(alpha);
         }
     }
 
