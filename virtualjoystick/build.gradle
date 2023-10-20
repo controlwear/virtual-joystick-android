@@ -1,19 +1,26 @@
-apply plugin: 'com.android.library'
+plugins{
+  id 'com.android.library'
+  id 'maven-publish'
+}
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 33
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 20
-        versionName "1.10.1"
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 22
+        versionName "1.13.1"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -22,26 +29,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-ext {
-    // Where you will see your artifact in Bintray's web interface
-    // The "bintrayName" should match the name of the Bintray repro.
-    bintrayRepo = 'maven'
-    bintrayName = 'virtual-joystick-android'
-
-    // Maven metadata
-    publishedGroupId = 'io.github.controlwear'
-    libraryName = 'virtual-joystick-android'
-    // Save yourself a head ache, and set this equal to the name of the Android Studio library
-    // module. The artifact name needs to match the name of the library.
-    artifact = 'virtualjoystick'
-
-    libraryDescription = 'This library provides a very simple and ready-to-use custom view which emulates a joystick for Android.'
-    libraryVersion = '1.10.1'
-
-    developerId = 'makowildcat'
-    developerName = 'Damien Brun'
-    developerEmail = 'makowildcat@gmail.com'
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'com.github.Mathias-Boulay'
+                artifactId = 'virtual-joystick-android'
+                version = '1.13.1'
+            }
+        }
+    }
 }
-
-apply from: 'https://raw.githubusercontent.com/attwellbrian/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/attwellbrian/JCenter/master/bintrayv1.gradle'
